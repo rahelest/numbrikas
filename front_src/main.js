@@ -1,6 +1,6 @@
-window.Appy = angular.module('numberApp', []);
+window.Appy = angular.module('numberApp', ["ngResource"]);
 
-Appy.controller("numberController", ['$scope', function ($scope) {
+Appy.controller("numberController", ['$scope', '$resource', function ($scope, $resource) {
 	
 	/*
 	 * Algus: 22:30
@@ -234,5 +234,11 @@ Appy.controller("numberController", ['$scope', function ($scope) {
 		console.log($scope.login.username, $scope.login.password, $scope.login);
 		$scope.loggedIn = true;
 	}
+	
+	$scope.load = function () {
+		$scope.table = $resource("game.json");
+	}
+	
+	$scope.helperNums = [1, 2, 3, 4, 4, 4, 4, 4, 5];
 	
 }]);

@@ -6,7 +6,8 @@ body {
 
 table {
     border-collapse: collapse;
-    display: inline;
+    display: inline-block;
+    margin-right: 100px;
 }
 
 th, td {
@@ -30,19 +31,47 @@ button {
 	background-color: #BBB;
 }
 
-form input, form button {
-	display: block;
-	margin: 1em;
-}
-
 input, button {
 	background-color: #FFFFFF;
     border: 1px solid #0000FF;
     border-radius: 5px;
     color: #00008B;
     padding: 0.5em 2em;
+    display: block;
+	margin: 1em;
 }
 
 button {
 	cursor: pointer;
+}
+
+.menu {
+    display: inline-block;
+    position: fixed;
+    right: 1em;
+    top: 30%;
+    vertical-align: bottom;
+    width: 100px;
+}
+
+.menu button {
+	width: 100%;
+}
+
+
+.main-wrapper {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+
+.main-wrapper > div {
+    display: inline-block;
+}
+
+.helper {
+    background: none repeat scroll 0 0 #FFFFFF;
+    position: fixed;
+    top: 0;
 }

@@ -8,42 +8,57 @@
 </head>
 <body>
 
-<div data-ng-hide="loggedIn">
-	<form>
-		<input data-ng-model="login.username">
-		<input data-ng-model="login.password">
-		<button data-ng-click="login()">LOGIN</button>
-	</form>
+<div class="main-wrapper">
+
+	<div data-ng-hide="loggedIn">
+		<form>
+			<input data-ng-model="login.username">
+			<input data-ng-model="login.password">
+			<button data-ng-click="login()">LOGIN</button>
+		</form>
+	</div>
+	
+	<div data-ng-show="loggedIn">
+		<table>
+			<thead>
+				<tr>
+					<td colspan="9">Tabel</td>
+				</tr>
+			</thead>
+		
+			<tbody>
+			
+				<tr data-ng-repeat="row in table track by $index" data-ng-hide="rowBlank[$index]">
+					<td data-ng-repeat="cell in row track by $index" data-ng-click="select(cell);" data-ng-class="{selected: cell.selected}">
+						<div>{{ cell.val }}</div>
+						<div class="small">{{ cell.row }}, {{ cell.col }}</div>
+					</td>
+				</tr>
+			
+			</tbody>
+		
+		</table>
+		
+		<div class="menu">
+			<button data-ng-click="save()">Salvesta</button>
+			<button data-ng-click="load()">Lae</button>
+			<button data-ng-click="expand()">Laienda</button>
+		</div>
+		
+		<div class="helper"> 
+    <table><tr>
+    	<td data-ng-repeat="cell in helperNums track by $index">{{ cell }}</td>    
+    </tr></table>
+</div>
+		
+		<div class="small" data-ng-repeat="msg in msgs track by $index" data-ng-bind="msg"></div>
+	</div>
+
 </div>
 
-<div data-ng-show="loggedIn">
-	<table>
-		<thead>
-			<tr>
-				<td colspan="9">Tabel</td>
-			</tr>
-		</thead>
-	
-		<tbody>
-		
-			<tr data-ng-repeat="row in table track by $index" data-ng-hide="rowBlank[$index]">
-				<td data-ng-repeat="cell in row track by $index" data-ng-click="select(cell);" data-ng-class="{selected: cell.selected}">
-					<div>{{ cell.val }}</div>
-					<div class="small">{{ cell.row }}, {{ cell.col }}</div>
-				</td>
-			</tr>
-		
-		</tbody>
-	
-	</table>
-	
-	<button data-ng-click="expand()">Laienda</button>
-	
-	
-	<div class="small" data-ng-repeat="msg in msgs track by $index" data-ng-bind="msg"></div>
-</div>
-
-<script src="angular.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/angular.js"></script>
+<script src="lib/angular-resource.min.js"></script>
 <script src="main.js"></script>
 
 </body>
