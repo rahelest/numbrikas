@@ -29,3 +29,20 @@ button {
 .selected {
 	background-color: #BBB;
 }
+
+form input, form button {
+	display: block;
+	margin: 1em;
+}
+
+input, button {
+	background-color: #FFFFFF;
+    border: 1px solid #0000FF;
+    border-radius: 5px;
+    color: #00008B;
+    padding: 0.5em 2em;
+}
+
+button {
+	cursor: pointer;
+}
