@@ -19,7 +19,7 @@
 	</div>
 	
 	<div data-ng-show="loggedIn">
-		<table>
+		<table class="main-row">
 			<thead>
 				<tr>
 					<td colspan="9">Tabel</td>
@@ -30,7 +30,7 @@
 			
 				<tr data-ng-repeat="row in table track by $index" data-ng-hide="rowBlank[$index]">
 					<td data-ng-repeat="cell in row track by $index" data-ng-click="select(cell);" data-ng-class="{selected: cell.selected}">
-						<div>{{ cell.val }}</div>
+						<div class="cellValue">{{ cell.val }}</div>
 						<div class="small">{{ cell.row }}, {{ cell.col }}</div>
 					</td>
 				</tr>
@@ -45,11 +45,11 @@
 			<button data-ng-click="expand()">Laienda</button>
 		</div>
 		
-		<div class="helper"> 
-    <table><tr>
-    	<td data-ng-repeat="cell in helperNums track by $index">{{ cell }}</td>    
-    </tr></table>
-</div>
+		<div class="helper" data-ng-show="helperNeeded"> 
+		    <table><tr>
+		    	<td data-ng-repeat="cell in helperNums track by $index">{{ cell }}</td>    
+		    </tr></table>
+		</div>
 		
 		<div class="small" data-ng-repeat="msg in msgs track by $index" data-ng-bind="msg"></div>
 	</div>

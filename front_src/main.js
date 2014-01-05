@@ -191,6 +191,8 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 			
 			$scope.rowBlank[rows[i]] = !valueFound;
 		}
+		
+		editHelper();
 	}
 	
 	var unSelectSelected = function () {
@@ -199,7 +201,9 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 		$scope.selectedCells = [];
 	}
 	
+	var expanded = 0;
 	$scope.expand = function () {
+		expanded++;
 		var initTable = JSON.parse(JSON.stringify($scope.table));
 		
 		for (var row = 0; row < initTable.length; row++) {
@@ -209,6 +213,11 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 					addToTable(cell.val);
 				}
 			}
+		}
+		
+		if (expanded > 0) {
+			$scope.helperNeeded = true;
+			editHelper();
 		}
 	}
 	
@@ -236,9 +245,17 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 	}
 	
 	$scope.load = function () {
-		$scope.table = $resource("game.json");
+		$scope.table = $resource("game.json").query(function (u) {
+			console.log(u);
+		});
+		console.log($scope.table);
 	}
 	
 	$scope.helperNums = [1, 2, 3, 4, 4, 4, 4, 4, 5];
+	
+	var editHelper = function () {
+		var lastCol = $(".main-row td:nth-child(2):visible .cellValue");
+		console.log(lastCol);
+	}
 	
 }]);
