@@ -320,9 +320,9 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 	$scope.printHelper = false;
 	
 	$scope.findFirstHiddenRow = function () {
-		var rowNumber = Math.floor(($("html").scrollTop() / ($(".main-row tbody tr:first td:first").height() + 2)) - $scope.rowFinderModifier);
+		var rowNumber = Math.floor(($("html").scrollTop() / ($(".main-row tbody tr:first td:first").height() + 3)) - $scope.rowFinderModifier);
 		if ($scope.printHelper) {
-			console.log($("html").scrollTop(), "/",  $(".main-row tbody tr:first td:first").height() + 2, 
+			console.log($("html").scrollTop(), "/",  $(".main-row tbody tr:first td:first").height() + 3, 
 					$("html").scrollTop() / $(".main-row tbody tr:first td:first").height(),
 					rowNumber);
 		}
@@ -378,5 +378,11 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 			}
 		}
 	};
+	
+	$("html").keyup(function (e) {
+		if (e.which == 69) { 
+			$scope.editHelper();
+		}
+	});
 	
 }]);
