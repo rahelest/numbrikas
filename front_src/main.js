@@ -15,8 +15,7 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 	
 	$scope.table = [];
 	$scope.rowBlank = [];
-	
-	
+	$scope.history = [];
 	
 	$scope.parseArray = function (data) {
 		
@@ -195,11 +194,17 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 		
 	};
 	
+	var makeHistoryObject = function (cell) {
+		return {cell: cell, val: cell.val, isMadeBlank: null};
+	};
+	
 	var removeSelected = function () {
 		
 		//TODO
 		var cell1 = $scope.selectedCells[0];
 		var cell2 = $scope.selectedCells[1];
+		
+		var historyStep = [makeHistoryObject(cell1), makeHistoryObject(cell2)];
 		
 		cell1.val = "";
 		cell2.val = "";
@@ -219,7 +224,10 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 			}
 			
 			$scope.rowBlank[rows[i]] = !valueFound;
+			historyStep[i].isMadeBlank = !valueFound;
 		}
+		
+		$scope.history.push(historyStep);
 		
 //		$scope.editHelper();
 	};
@@ -281,9 +289,12 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 	$scope.parse = function () {
 		var json = $scope.json;
 		if (!json) return;
+		
 		var parsed = JSON.parse(json);
-		console.log(parsed);
 		$scope.parseArray(parsed);
+		
+		$scope.helperNeeded = true;
+		$scope.editHelper();
 	};
 	
 	$scope.helperNums = [1, 2, 3, 4, 4, 4, 4, 4, 5];
@@ -351,6 +362,21 @@ Appy.controller("numberController", ['$scope', '$resource', function ($scope, $r
 			elements.push(row[i].val);
 		}
 		return elements;
+	};
+	
+	$scope.undo = function () {
+		var step = $scope.history.pop();
+		if (step) {
+		
+			for (var i = 0; i < step.length; i++) {
+				var cell = step[i].cell;
+				cell.val = step[i].val;
+				var row = cell.row;
+				if (step[i].isMadeBlank) {
+					$scope.rowBlank[row] = false;
+				}
+			}
+		}
 	};
 	
 }]);
