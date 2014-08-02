@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html data-ng-app="numberApp" data-ng-controller="numberController">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Numbrikas</title>
-
-<link href="style.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-
-<div class="main-wrapper">
-
-	<div data-ng-hide="loggedIn">
-		<form>
-			<input data-ng-model="login.username">
-			<input data-ng-model="login.password">
-			<button data-ng-click="login()">LOGIN</button>
-		</form>
-	</div>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Numbrikas</title>
+		
+		<link href="style.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
 	
-	<div data-ng-show="loggedIn">
-		<table class="main-row">
-			<thead>
-				<tr>
-					<td colspan="9">Tabel</td>
-				</tr>
-			</thead>
-		
-			<tbody>
+		<div class="menu fixed-center" data-ng-show="loggedIn">
+					
+			<button data-ng-click="save(); showTextArea = true">Salvesta</button>
+			<button data-ng-hide="showTextArea" data-ng-click="showTextArea = true">Lae</button>
 			
-				<tr data-ng-repeat="row in table track by $index" data-ng-hide="rowBlank[$index]">
-					<td data-ng-repeat="cell in row track by $index" data-ng-click="select(cell);" data-ng-class="{selected: cell.selected}">
-						<div class="cellValue">{{ cell.val }}</div>
-						<div class="small">{{ cell.row }}, {{ cell.col }}</div>
-					</td>
-				</tr>
+			<div class="inline" data-ng-show="showTextArea">
+				<textarea data-ng-model="json"></textarea>
+				<button class="smaller" data-ng-click="parse()">Lae</button>
+				<button class="smaller" data-ng-click="showTextArea = false;">X</button>
+			</div>
 			
-			</tbody>
-		
-		</table>
-		
-		<div class="menu">
-			<button data-ng-click="save()">Salvesta</button>
-			<button data-ng-click="load()">Lae</button>
 			<button data-ng-click="expand()">Laienda</button>
+			
+			
 		</div>
 		
-		<div class="helper" data-ng-show="helperNeeded"> 
-		    <table><tr>
-		    	<td data-ng-repeat="cell in helperNums track by $index">{{ cell }}</td>    
-		    </tr></table>
+		<div class="helper fixed-center" data-ng-show="helperNeeded">
+			<table>
+				<tr>
+					<td data-ng-repeat="cell in helperNums track by $index">{{ cell }}</td>
+					<td class="index">{{ firstHiddenRow + 1 }}</td>
+				</tr>
+			</table>
 		</div>
-		
-		<div class="small" data-ng-repeat="msg in msgs track by $index" data-ng-bind="msg"></div>
-	</div>
-
-</div>
-
-<script src="lib/jquery.min.js"></script>
-<script src="lib/angular.js"></script>
-<script src="lib/angular-resource.min.js"></script>
-<script src="main.js"></script>
-
-</body>
+	
+		<div class="main-wrapper">
+	
+			<div data-ng-hide="loggedIn">
+				<form>
+					<input data-ng-model="login.username"> <input
+						data-ng-model="login.password">
+					<button data-ng-click="login()">LOGIN</button>
+				</form>
+			</div>
+	
+			<div data-ng-show="loggedIn">
+				<table class="main-row">
+					<thead>
+						<tr>
+							<td colspan="10">Tabel</td>
+						</tr>
+					</thead>
+	
+					<tbody>
+	
+						<tr data-ng-repeat="row in table track by $index"
+							data-ng-hide="rowBlank[$index]">
+							<td data-ng-repeat="cell in row track by $index"
+								data-ng-click="select(cell);"
+								data-ng-class="{selected: cell.selected}">
+								<div class="cellValue">{{ cell.val }}</div>
+								<div class="small">{{ cell.row }}, {{ cell.col }}</div>
+							</td>
+							<td class="index">{{ $index + 1 }}</td>
+						</tr>
+	
+					</tbody>
+	
+				</table>
+	
+				<div class="small" data-ng-repeat="msg in msgs track by $index"
+					data-ng-bind="msg"></div>
+			</div>
+	
+		</div>
+	
+		<script src="lib/jquery.min.js"></script>
+		<script src="lib/angular.js"></script>
+		<script src="lib/angular-resource.min.js"></script>
+		<script src="main.js"></script>
+	
+	</body>
 </html>
