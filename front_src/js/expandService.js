@@ -24,7 +24,7 @@ Appy.factory('expandService', function ($rootScope) {
 		var rowNumber = lastRow.number + 1;
 		
 		if (lastRow.data.length < 9) {
-			lastRow.data.push({val: cellValue, selected: false, row: tableLen - 1, col: lastRow.length});
+			lastRow.data.push({val: cellValue, selected: false, row: tableLen - 1, col: lastRow.data.length});
 		} else {
 			$rootScope.table.push({ number: rowNumber, data: [{val: cellValue, selected: false, row: tableLen, col: 0}]});
 		}

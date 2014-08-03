@@ -56,7 +56,6 @@ Appy.factory('loadSaveProvider', function ($rootScope) {
 		for (var i = 0; i < tableSize; i++) {
 			if (!$rootScope.rowBlank[i]) {
 				compressedTable.push(getArrayOfElementsOnRow(i));
-				compressedTable.push({ row: i, data: elements});
 			}
 		}
 		
@@ -66,11 +65,12 @@ Appy.factory('loadSaveProvider', function ($rootScope) {
 	var getArrayOfElementsOnRow = function (rowNumber) {
 		var elements = [];
 		var row = $rootScope.table[rowNumber];
-		var rowObject = { row: row.number, data: elements}
 		
-		for (var i = 0; i < row.length; i++) {
+		for (var i = 0; i < row.data.length; i++) {
 			elements.push(row.data[i].val);
 		}
+		
+		var rowObject = { row: row.number, data: elements};
 		return rowObject;
 	};
 	

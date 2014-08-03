@@ -1,7 +1,7 @@
 Appy.factory('helperService', function ($rootScope) {
 	
 	var scope = {};
-	scope.rowFinderModifier = 2.2;
+	scope.rowFinderModifier = 1.3;
 	scope.printHelper = false;
 	
 	scope.update = function () {
