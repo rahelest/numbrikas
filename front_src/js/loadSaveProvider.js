@@ -8,33 +8,36 @@ Appy.factory('loadSaveProvider', function ($rootScope) {
 		$rootScope.rowBlank = [];
 		var rowIndex = 0;
 		
-		var previousRowNumber = data[0].row - 1;
+//		var previousRowNumber = data[0].row - 1;
 		for (var importDataIndex = 0; importDataIndex < data.length; importDataIndex++, rowIndex++) {
 			
-			var newRowNumber = data[importDataIndex].row;
-			var rowDifference = newRowNumber - previousRowNumber;
-			if (rowDifference > 1) {
-				console.log("rowDifference", rowDifference);
-				while (rowDifference > 1) {
-					$rootScope.table.push([]);
-					$rootScope.rowBlank.push(true);
-					for (var col = 0; col < 9; col++) {
-						$rootScope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
-					}
-					rowDifference--;
-					rowIndex++;
-				}
-			}
+//			var newRowNumber = data[importDataIndex].row;
+//			var rowDifference = newRowNumber - previousRowNumber;
+//			if (rowDifference > 1) {
+//				console.log("rowDifference", rowDifference);
+//				while (rowDifference > 1) {
+//					$rootScope.table.push([]);
+//					$rootScope.rowBlank.push(true);
+//					for (var col = 0; col < 9; col++) {
+//						$rootScope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
+//					}
+//					rowDifference--;
+//					rowIndex++;
+//				}
+//			}
 			
 			$rootScope.rowBlank.push(false);
 			
-			$rootScope.table.push([]);
+			$rootScope.table.push({number: data[importDataIndex].row, data: []});
 			var rowArray = data[importDataIndex].data;
+			var tableRow = [];
 			for (var col = 0; col < rowArray.length; col++) {
-				$rootScope.table[rowIndex].push({val: rowArray[col], selected: false, row: rowIndex, col: col});
+				tableRow.push({val: rowArray[col], selected: false, row: rowIndex, col: col});
 			}
 			
-			previousRowNumber = newRowNumber;
+			$rootScope.table[rowIndex].data = tableRow;
+			
+//			previousRowNumber = newRowNumber;
 			
 		}
 	};

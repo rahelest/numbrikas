@@ -82,7 +82,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 
 		var col = cell1.col;
 		for (var row = cell1.row + 1; row < cell2.row; row++) {
-			var cell = table[row][col];
+			var cell = table[row].data[col];
 			if (cell.val != "") {
 				return false;
 			}
@@ -106,7 +106,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 		var row = cell1.row;
 		if (cell1.row == cell2.row) {
 			for (var col = cell1.col + 1; col < cell2.col; col++) {
-				var cell = table[row][col];
+				var cell = table[row].data[col];
 				if (cell.val != "") {
 					return false;
 				}
@@ -125,7 +125,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 
 			var row = cell1.row;
 			for (var col = cell1.col + 1; col < 9; col++) {
-				var cell = table[row][col];
+				var cell = table[row].data[col];
 				if (cell.val != "") {
 					return false;
 				}
@@ -133,7 +133,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 
 			row = cell2.row;
 			for (var col = 0; col < cell2.col; col++) {
-				var cell = table[row][col];
+				var cell = table[row].data[col];
 				if (cell.val != "") {
 					return false;
 				}

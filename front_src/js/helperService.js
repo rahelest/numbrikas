@@ -2,7 +2,7 @@ Appy.factory('helperService', function ($rootScope) {
 	
 	var scope = {};
 	scope.rowFinderModifier = 2.2;
-	scope.printHelper = true;
+	scope.printHelper = false;
 	
 	scope.update = function () {
 		var firstHiddenRow = $rootScope.firstHiddenRow = findFirstHiddenRow();
@@ -11,7 +11,7 @@ Appy.factory('helperService', function ($rootScope) {
 			var foundNumber = "";
 			
 			while (activeRow >= 0 && !foundNumber) {
-				foundNumber = $rootScope.table[activeRow][i].val;
+				foundNumber = $rootScope.table[activeRow].data[i].val;
 				activeRow--;
 			}
 			
