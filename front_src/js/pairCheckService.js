@@ -157,7 +157,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 		var rows = [ cell1.row, cell2.row ];
 
 		for (var i = 0; i < 2; i++) {
-			var row = table[rows[i]];
+			var row = table[rows[i]].data;
 			var valueFound = false;
 			
 			for (var col = 0; col < 9; col++) {
