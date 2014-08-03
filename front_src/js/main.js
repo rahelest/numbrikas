@@ -1,7 +1,7 @@
 window.Appy = angular.module('numberApp', ["ngResource"]);
 
-Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'historyProvider', 'helperService', 
-                                     function ($scope, $resource, pairChecker, history, helper) {
+Appy.controller("numberController", ['$scope', '$rootScope', '$resource', 'pairChecker', 'historyProvider', 'helperService', 
+                                     function ($scope, $rootScope, $resource, pairChecker, history, helper) {
 	
 	/*
 	 * Algus: 22:30
@@ -14,14 +14,16 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 	             {row: 1, data: [1, 1, 1, 2, 1, 3, 1, 4, 1]},
 				 {row: 2, data: [5, 1, 6, 1, 7, 1, 8, 1, 9]}];
 	
-	$scope.helperNums = {};
-	$scope.table = [];
-	$scope.rowBlank = [];
+	$rootScope.table = [];
+	$rootScope.rowBlank = [];
+	
+	$rootScope.helperNums = {};
+	$rootScope.firstHiddenRow = 0;
 	
 	$scope.parseArray = function (data) {
 		
-		$scope.table = [];
-		$scope.rowBlank = [];
+		$rootScope.table = [];
+		$rootScope.rowBlank = [];
 		var rowIndex = 0;
 		
 		var previousRowNumber = data[0].row - 1;
@@ -32,22 +34,22 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 			if (rowDifference > 1) {
 				console.log("rowDifference", rowDifference);
 				while (rowDifference > 1) {
-					$scope.table.push([]);
-					$scope.rowBlank.push(true);
+					$rootScope.table.push([]);
+					$rootScope.rowBlank.push(true);
 					for (var col = 0; col < 9; col++) {
-						$scope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
+						$rootScope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
 					}
 					rowDifference--;
 					rowIndex++;
 				}
 			}
 			
-			$scope.rowBlank.push(false);
+			$rootScope.rowBlank.push(false);
 			
-			$scope.table.push([]);
+			$rootScope.table.push([]);
 			var rowArray = data[importDataIndex].data;
 			for (var col = 0; col < rowArray.length; col++) {
-				$scope.table[rowIndex].push({val: rowArray[col], selected: false, row: rowIndex, col: col});
+				$rootScope.table[rowIndex].push({val: rowArray[col], selected: false, row: rowIndex, col: col});
 			}
 			
 			previousRowNumber = newRowNumber;
@@ -57,190 +59,12 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 	
 	$scope.parseArray(init);
 	
-	$scope.selectedCells = [];
-	
-	$scope.select = function (cell) {
-		cell.selected = !cell.selected;
-		
-		if (cell.selected) {
-			var len = $scope.selectedCells.length;
-			if (len == 0) {
-				$scope.selectedCells.push(cell);
-			} else if (len == 1) {
-				$scope.selectedCells.push(cell);
-				if (checkSelected()) {
-					removeSelected();
-				}
-				unSelectSelected();
-			}
-		} else {
-			var len = $scope.selectedCells.length;
-			if (len == 1) {
-				$scope.selectedCells = [];
-			} else {
-				//console.log("KUIDAS?? $scope.selectedCells.len != 1");
-			}
-		}
-	};
-	
-	var checkSelected = function () {
-		//kohakuti, kõrvuti
-		
-		var cell1 = $scope.selectedCells[0];
-		var cell2 = $scope.selectedCells[1];
-		
-		if (!valuesOK()) {
-			return false;
-		}
-		
-		if (cell1.row == cell2.row && Math.abs(cell1.col - cell2.col) == 1) {
-			return true;
-		} else if (cell1.col == cell2.col && Math.abs(cell1.row - cell2.row) == 1) {
-			return true;
-		} else if (verticallyOK() || horizontallyOK()) {
-			return true;
-		} else {
-			return false;
-		}
-		
-		
-	};
-	
-	var valuesOK = function () {
-		var cell1 = $scope.selectedCells[0];
-		var cell2 = $scope.selectedCells[1];
-		
-		if (cell1 === "" || cell2 === "") return false;
-		
-		return  (cell1.val == cell2.val || cell1.val + cell2.val == 10);
-	};
-	
-	var verticallyOK = function () {
-		// kohakuti juba ära olnud
-		
-		var cell1 = $scope.selectedCells[0];
-		var cell2 = $scope.selectedCells[1];
-		
-		if (cell1.col != cell2.col) {
-			return false;
-		}
-		
-		if (cell1.row > cell2.row) { // ülevalpool olev esimeseks
-			var temp = cell1;
-			cell1 = cell2;
-			cell2 = temp;
-			
-		}
-		
-		var col = cell1.col;
-		for (var row = cell1.row + 1; row < cell2.row; row++) {
-			var cell = $scope.table[row][col];
-			if (cell.val != "") {
-				return false;
-			}
-		}
-		return true;
-	};
-	
-	var horizontallyOK = function () {
-		//kõrvuti on juba ära olnud
-		
-		var cell1 = $scope.selectedCells[0];
-		var cell2 = $scope.selectedCells[1];
-		
-		if (cell1.row > cell2.row || (cell1.row == cell2.row && cell1.col > cell2.col)) {
-			var temp = cell1;
-			cell1 = cell2;
-			cell2 = temp;
-		}
-		
-		var row = cell1.row;
-		if (cell1.row == cell2.row) {
-			for (var col = cell1.col + 1; col < cell2.col; col++) {
-				var cell = $scope.table[row][col];
-				if (cell.val != "") {
-					return false;
-				}
-			}
-		} else {
-			// erinevatel ridadel
-			if (cell2.row - cell1.row > 1) {
-				//kaugemal kui kohakuti read
-				for (var row = cell1.row + 1; row < cell2.row; row++) {
-					if (!$scope.rowBlank[row]) {
-						//antud rida ei ole tühi
-						return false;
-					}
-				}
-			}
-			
-			var row = cell1.row;
-			for (var col = cell1.col + 1 ; col < 9; col++) {
-				var cell = $scope.table[row][col];
-				if (cell.val != "") {
-					return false;
-				}
-			}
-			
-			row = cell2.row;
-			for (var col = 0; col < cell2.col; col++) {
-				var cell = $scope.table[row][col];
-				if (cell.val != "") {
-					return false;
-				}
-			}
-		}
-		
-		return true;
-		
-	};
-	
-	var removeSelected = function () {
-		
-		//TODO
-		var cell1 = $scope.selectedCells[0];
-		var cell2 = $scope.selectedCells[1];
-		
-		history.startStep(cell1, cell2);
-		
-		cell1.val = "";
-		cell2.val = "";
-		
-		//TODO: ega nüüd tühja rida tekkinud?
-		
-		var rows = [cell1.row, cell2.row];
-		
-		for (var i = 0; i < 2; i++) {
-			var row = $scope.table[rows[i]];
-			var valueFound = false;
-			for (var col = 0; col < 9; col++) {
-				if (!row[col] || row[col].val != "") {
-					valueFound = true;
-					break;
-				}
-			}
-			
-			$scope.rowBlank[rows[i]] = !valueFound;
-			history.setBlankVar(i, !valueFound);
-			
-		}
-		
-		history.ready();
-		
-		
-//		helper.update($scope.table, $scope.helperNums)(table, $scope.helperNums);
-	};
-	
-	var unSelectSelected = function () {
-		$scope.selectedCells[0].selected = false;
-		$scope.selectedCells[1].selected = false;
-		$scope.selectedCells = [];
-	};
-	
+	$scope.select = pairChecker.select;
+
 	var expanded = 0;
 	$scope.expand = function () {
 		expanded++;
-		var initTable = JSON.parse(JSON.stringify($scope.table));
+		var initTable = JSON.parse(JSON.stringify($rootScope.table));
 		
 		for (var row = 0; row < initTable.length; row++) {
 			for (var col = 0; col < initTable[row].length; col++) {
@@ -253,20 +77,25 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 		
 		if (expanded > 0) {
 			$scope.helperNeeded = true;
-			helper.update($scope.table, $scope.helperNums);
+			updateHelper();
 		}
 	};
 	
 	var addToTable = function (cellValue) {
-		var tableLen = $scope.table.length;
-		var lastRow = $scope.table[tableLen - 1];
+		var tableLen = $rootScope.table.length;
+		var lastRow = $rootScope.table[tableLen - 1];
 		
 		if (lastRow.length < 9) {
 			lastRow.push({val: cellValue, selected: false, row: tableLen - 1, col: lastRow.length});
 		} else {
-			$scope.table.push([{val: cellValue, selected: false, row: tableLen, col: 0}]);
+			$rootScope.table.push([{val: cellValue, selected: false, row: tableLen, col: 0}]);
 		}
 	};
+	
+	$(window).scroll(function () {
+		updateHelper();
+		$rootScope.$apply();
+	});
 	
 	$scope.write = function (text) {
 		$scope.msgs.push(text);
@@ -279,7 +108,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 	};
 	
 	$scope.load = function () {
-		/*$scope.table = $resource("game.json").query(function (u) {
+		/*$rootScope.table = $resource("game.json").query(function (u) {
 		});*/
 		
 //		$scope.showTextArea = true;
@@ -293,15 +122,15 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 		$scope.parseArray(parsed);
 		
 		$scope.helperNeeded = true;
-		helper.update($scope.table, $scope.helperNums);
+		updateHelper();
 	};
 	
 	$scope.save = function () {
-		var tableSize = $scope.table.length;
+		var tableSize = $rootScope.table.length;
 		var compressedTable = [];
 		
 		for (var i = 0; i < tableSize; i++) {
-			if (!$scope.rowBlank[i]) {
+			if (!$rootScope.rowBlank[i]) {
 				var elements = $scope.getArrayOfElementsOnRow(i);
 				compressedTable.push({ row: i, data: elements});
 			}
@@ -312,7 +141,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 	
 	$scope.getArrayOfElementsOnRow = function (rowNumber) {
 		var elements = [];
-		var row = $scope.table[rowNumber];
+		var row = $rootScope.table[rowNumber];
 		
 		for (var i = 0; i < row.length; i++) {
 			elements.push(row[i].val);
@@ -324,8 +153,13 @@ Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'hist
 	
 	$("html").keyup(function (e) {
 		if (e.which == 69) { 
-			helper.update($scope.table, $scope.helperNums);
+			updateHelper();
+			$rootScope.$apply();
 		}
 	});
+	
+	var updateHelper = function () {
+		helper.update();
+	};
 	
 }]);

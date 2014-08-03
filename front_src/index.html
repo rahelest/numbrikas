@@ -38,8 +38,8 @@
 	
 			<div data-ng-hide="loggedIn">
 				<form>
-					<input data-ng-model="login.username"> <input
-						data-ng-model="login.password">
+					<input data-ng-model="login.username">
+					<input data-ng-model="login.password">
 					<button data-ng-click="login()">LOGIN</button>
 				</form>
 			</div>
@@ -57,7 +57,7 @@
 						<tr data-ng-repeat="row in table track by $index"
 							data-ng-hide="rowBlank[$index]">
 							<td data-ng-repeat="cell in row track by $index"
-								data-ng-click="select(cell);"
+								data-ng-click="select(cell, table, rowBlank);"
 								data-ng-class="{selected: cell.selected}">
 								<div class="cellValue">{{ cell.val }}</div>
 								<div class="small">{{ cell.row }}, {{ cell.col }}</div>
