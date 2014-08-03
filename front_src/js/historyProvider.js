@@ -1,4 +1,4 @@
-Appy.factory('historyProvider', ['variableProvider',  function (variables) {
+Appy.factory('historyProvider', function () {
 	
 	var scope = {};
 	
@@ -42,4 +42,4 @@ Appy.factory('historyProvider', ['variableProvider',  function (variables) {
 	
 	
 	return scope;
-}]);
+});

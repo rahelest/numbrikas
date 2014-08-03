@@ -1,4 +1,8 @@
-Appy.factory('pairChecker', ['variableProvider',  function (variableProvider) {
+Appy.factory('pairChecker', function () {
+	
+	var scope = {};
 	
 	
-}]);
+	return scope;
+	
+});

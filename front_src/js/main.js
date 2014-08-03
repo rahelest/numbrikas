@@ -1,7 +1,7 @@
 window.Appy = angular.module('numberApp', ["ngResource"]);
 
-Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 'pairChecker', 'historyProvider', 
-                                     function ($scope, $resource, variables, pairChecker, history) {
+Appy.controller("numberController", ['$scope', '$resource', 'pairChecker', 'historyProvider', 'helperService', 
+                                     function ($scope, $resource, pairChecker, history, helper) {
 	
 	/*
 	 * Algus: 22:30
@@ -14,11 +14,14 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 	             {row: 1, data: [1, 1, 1, 2, 1, 3, 1, 4, 1]},
 				 {row: 2, data: [5, 1, 6, 1, 7, 1, 8, 1, 9]}];
 	
+	$scope.helperNums = {};
+	$scope.table = [];
+	$scope.rowBlank = [];
 	
 	$scope.parseArray = function (data) {
 		
-		variables.table = [];
-		variables.rowBlank = [];
+		$scope.table = [];
+		$scope.rowBlank = [];
 		var rowIndex = 0;
 		
 		var previousRowNumber = data[0].row - 1;
@@ -29,34 +32,27 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 			if (rowDifference > 1) {
 				console.log("rowDifference", rowDifference);
 				while (rowDifference > 1) {
-					variables.table.push([]);
-					variables.rowBlank.push(true);
+					$scope.table.push([]);
+					$scope.rowBlank.push(true);
 					for (var col = 0; col < 9; col++) {
-						variables.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
+						$scope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
 					}
 					rowDifference--;
 					rowIndex++;
 				}
 			}
 			
-			variables.rowBlank.push(false);
+			$scope.rowBlank.push(false);
 			
-			variables.table.push([]);
+			$scope.table.push([]);
 			var rowArray = data[importDataIndex].data;
 			for (var col = 0; col < rowArray.length; col++) {
-				variables.table[rowIndex].push({val: rowArray[col], selected: false, row: rowIndex, col: col});
+				$scope.table[rowIndex].push({val: rowArray[col], selected: false, row: rowIndex, col: col});
 			}
 			
 			previousRowNumber = newRowNumber;
 			
 		}
-		
-		setVariables();
-	};
-	
-	var setVariables = function () {
-		$scope.table = variables.table;
-		$scope.rowBlank = variables.rowBlank;
 	};
 	
 	$scope.parseArray(init);
@@ -138,7 +134,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		
 		var col = cell1.col;
 		for (var row = cell1.row + 1; row < cell2.row; row++) {
-			var cell = variables.table[row][col];
+			var cell = $scope.table[row][col];
 			if (cell.val != "") {
 				return false;
 			}
@@ -161,7 +157,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		var row = cell1.row;
 		if (cell1.row == cell2.row) {
 			for (var col = cell1.col + 1; col < cell2.col; col++) {
-				var cell = variables.table[row][col];
+				var cell = $scope.table[row][col];
 				if (cell.val != "") {
 					return false;
 				}
@@ -171,7 +167,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 			if (cell2.row - cell1.row > 1) {
 				//kaugemal kui kohakuti read
 				for (var row = cell1.row + 1; row < cell2.row; row++) {
-					if (!variables.rowBlank[row]) {
+					if (!$scope.rowBlank[row]) {
 						//antud rida ei ole tühi
 						return false;
 					}
@@ -180,7 +176,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 			
 			var row = cell1.row;
 			for (var col = cell1.col + 1 ; col < 9; col++) {
-				var cell = variables.table[row][col];
+				var cell = $scope.table[row][col];
 				if (cell.val != "") {
 					return false;
 				}
@@ -188,7 +184,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 			
 			row = cell2.row;
 			for (var col = 0; col < cell2.col; col++) {
-				var cell = variables.table[row][col];
+				var cell = $scope.table[row][col];
 				if (cell.val != "") {
 					return false;
 				}
@@ -198,8 +194,6 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		return true;
 		
 	};
-	
-	
 	
 	var removeSelected = function () {
 		
@@ -217,7 +211,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		var rows = [cell1.row, cell2.row];
 		
 		for (var i = 0; i < 2; i++) {
-			var row = variables.table[rows[i]];
+			var row = $scope.table[rows[i]];
 			var valueFound = false;
 			for (var col = 0; col < 9; col++) {
 				if (!row[col] || row[col].val != "") {
@@ -226,7 +220,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 				}
 			}
 			
-			variables.rowBlank[rows[i]] = !valueFound;
+			$scope.rowBlank[rows[i]] = !valueFound;
 			history.setBlankVar(i, !valueFound);
 			
 		}
@@ -234,7 +228,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		history.ready();
 		
 		
-//		$scope.editHelper();
+//		helper.update($scope.table, $scope.helperNums)(table, $scope.helperNums);
 	};
 	
 	var unSelectSelected = function () {
@@ -246,7 +240,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 	var expanded = 0;
 	$scope.expand = function () {
 		expanded++;
-		var initTable = JSON.parse(JSON.stringify(variables.table));
+		var initTable = JSON.parse(JSON.stringify($scope.table));
 		
 		for (var row = 0; row < initTable.length; row++) {
 			for (var col = 0; col < initTable[row].length; col++) {
@@ -259,18 +253,18 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		
 		if (expanded > 0) {
 			$scope.helperNeeded = true;
-			$scope.editHelper();
+			helper.update($scope.table, $scope.helperNums);
 		}
 	};
 	
 	var addToTable = function (cellValue) {
-		var tableLen = variables.table.length;
-		var lastRow = variables.table[tableLen - 1];
+		var tableLen = $scope.table.length;
+		var lastRow = $scope.table[tableLen - 1];
 		
 		if (lastRow.length < 9) {
 			lastRow.push({val: cellValue, selected: false, row: tableLen - 1, col: lastRow.length});
 		} else {
-			variables.table.push([{val: cellValue, selected: false, row: tableLen, col: 0}]);
+			$scope.table.push([{val: cellValue, selected: false, row: tableLen, col: 0}]);
 		}
 	};
 	
@@ -285,7 +279,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 	};
 	
 	$scope.load = function () {
-		/*variables.table = $resource("game.json").query(function (u) {
+		/*$scope.table = $resource("game.json").query(function (u) {
 		});*/
 		
 //		$scope.showTextArea = true;
@@ -299,58 +293,15 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 		$scope.parseArray(parsed);
 		
 		$scope.helperNeeded = true;
-		$scope.editHelper();
-	};
-	
-	$scope.helperNums = [1, 2, 3, 4, 4, 4, 4, 4, 5];
-	
-	$scope.editHelper = function () {
-		var firstHiddenRow = $scope.firstHiddenRow = $scope.findFirstHiddenRow();
-		for (var i = 0; i < 9; i++) {
-			var activeRow = firstHiddenRow;
-			var foundNumber = "";
-			
-			while (activeRow >= 0 && !foundNumber) {
-				foundNumber = variables.table[activeRow][i].val;
-				activeRow--;
-			}
-			
-			$scope.helperNums[i] = foundNumber;
-		}
-	};
-	
-	$(window).scroll($scope.editHelper);
-	
-	$scope.rowFinderModifier = 2.2;
-	$scope.printHelper = false;
-	
-	$scope.findFirstHiddenRow = function () {
-		var rowNumber = Math.floor(($("html").scrollTop() / ($(".main-row tbody tr:first td:first").height() + 3)) - $scope.rowFinderModifier);
-		if ($scope.printHelper) {
-			console.log($("html").scrollTop(), "/",  $(".main-row tbody tr:first td:first").height() + 3, 
-					$("html").scrollTop() / $(".main-row tbody tr:first td:first").height(),
-					rowNumber);
-		}
-		return $scope.findHiddenRowIndex(rowNumber);
-	};
-	
-	$scope.findHiddenRowIndex = function (firstHiddenRow) {
-		var index = 0;
-		while (firstHiddenRow >= 0) {
-			if (!variables.rowBlank[index]) {
-				firstHiddenRow--;
-			}
-			index++;
-		}
-		return index;
+		helper.update($scope.table, $scope.helperNums);
 	};
 	
 	$scope.save = function () {
-		var tableSize = variables.table.length;
+		var tableSize = $scope.table.length;
 		var compressedTable = [];
 		
 		for (var i = 0; i < tableSize; i++) {
-			if (!variables.rowBlank[i]) {
+			if (!$scope.rowBlank[i]) {
 				var elements = $scope.getArrayOfElementsOnRow(i);
 				compressedTable.push({ row: i, data: elements});
 			}
@@ -361,7 +312,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 	
 	$scope.getArrayOfElementsOnRow = function (rowNumber) {
 		var elements = [];
-		var row = variables.table[rowNumber];
+		var row = $scope.table[rowNumber];
 		
 		for (var i = 0; i < row.length; i++) {
 			elements.push(row[i].val);
@@ -373,7 +324,7 @@ Appy.controller("numberController", ['$scope', '$resource', 'variableProvider', 
 	
 	$("html").keyup(function (e) {
 		if (e.which == 69) { 
-			$scope.editHelper();
+			helper.update($scope.table, $scope.helperNums);
 		}
 	});
 	
