@@ -38,13 +38,9 @@ Appy.controller("numberController", ['$scope', '$rootScope', '$resource', 'pairC
 
     $scope.expand = function () {
       expand.expand();
-      
+
       $scope.helperNeeded = true;
       updateHelper();
-    };
-
-    $scope.login = function () {
-      $scope.loggedIn = true;
     };
 
     $scope.parse = function () {

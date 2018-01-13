@@ -3,28 +3,28 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Numbrikas</title>
-		
+
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-	
-		<div class="menu fixed-center" data-ng-show="loggedIn">
-					
+
+		<div class="menu fixed-center">
+
 			<button data-ng-click="save(); showTextArea = true">Salvesta</button>
 			<button data-ng-hide="showTextArea" data-ng-click="showTextArea = true">Lae</button>
-			
+
 			<div class="inline" data-ng-show="showTextArea">
 				<textarea data-ng-model="json"></textarea>
 				<button class="smaller" data-ng-click="parse()">Lae</button>
 				<button class="smaller" data-ng-click="showTextArea = false;">X</button>
 			</div>
-			
+
 			<button data-ng-click="expand()">Laienda</button>
 			<button data-ng-click="undo()" data-ng-disable="history.length == 0">Võta tagasi</button>
-			
-			
+
+
 		</div>
-		
+
 		<div class="helper fixed-center" data-ng-show="helperNeeded">
 			<table>
 				<tr>
@@ -33,27 +33,19 @@
 				</tr>
 			</table>
 		</div>
-	
+
 		<div class="main-wrapper">
-	
-			<div data-ng-hide="loggedIn">
-				<form>
-					<input data-ng-model="login.username">
-					<input data-ng-model="login.password">
-					<button data-ng-click="login()">LOGIN</button>
-				</form>
-			</div>
-	
-			<div data-ng-show="loggedIn">
+
+			<div>
 				<table class="main-row">
 					<thead>
 						<tr>
 							<td colspan="10">Tabel</td>
 						</tr>
 					</thead>
-	
+
 					<tbody>
-	
+
 						<tr data-ng-repeat="row in table track by $index"
 							data-ng-hide="rowBlank[$index]">
 							<td data-ng-repeat="cell in row.data track by $index"
@@ -64,17 +56,17 @@
 							</td>
 							<td class="index">{{ row.number + 1 }}</td>
 						</tr>
-	
+
 					</tbody>
-	
+
 				</table>
-	
+
 				<div class="small" data-ng-repeat="msg in msgs track by $index"
 					data-ng-bind="msg"></div>
 			</div>
-	
+
 		</div>
-	
+
 		<script src="lib/jquery.min.js"></script>
 		<script src="lib/angular.js"></script>
 		<script src="lib/angular-resource.min.js"></script>
