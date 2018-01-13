@@ -13,7 +13,6 @@ table {
 
 table thead th {
 	/* 	border-right: 1px solid #777; */
-	
 }
 
 th,td {
@@ -92,9 +91,13 @@ button {
 }
 
 .helper {
-	background-color: #fff;
 	height: 42px;
 	top: 0;
+}
+
+.helper table {
+	background-color: #f2f2f2;
+	margin: 11px;
 }
 
 .helper td {
