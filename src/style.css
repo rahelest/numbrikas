@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+[data-ng-cloak] {
+    display: none !important;
+}
+
 body {
 	font-size: 2em;
 	margin: 0;
