@@ -4,6 +4,10 @@ Appy.config(function(localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix("numbers19");
 });
 
+$(function() {
+    window.FastClick.attach(document.body);
+});
+
 Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "historyProvider", "helperService",
     "loadSaveProvider", "expandService", "autoSaveProvider",
     function($scope, $rootScope, pairChecker, history, helper, loadSave, expand, autoSaveProvider) {
