@@ -8,7 +8,7 @@
 
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
-	<body data-ng-cloak>
+	<body data-ng-cloak data-ng-class="{dark: darkMode}">
 		<div class="menu fixed-center">
 			<!-- <button data-ng-click="save(); showTextArea = true">Export</button> -->
 			<!-- <button data-ng-hide="showTextArea" data-ng-click="showTextArea = true">Import</button> -->
@@ -20,6 +20,7 @@
 			</div> -->
 
 			<button data-ng-click="restart()">Restart</button>
+			<button data-ng-click="switchMode()">D</button>
 			<button data-ng-click="expand()">Expand</button>
 			<button data-ng-click="undo()" data-ng-disable="history.length == 0">Undo</button>
 		</div>

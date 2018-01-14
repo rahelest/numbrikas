@@ -19,6 +19,11 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
             {row: 1, data: [1, 1, 1, 2, 1, 3, 1, 4, 1]},
             {row: 2, data: [5, 1, 6, 1, 7, 1, 8, 1, 9]}];
 
+        $scope.darkMode = true;
+        $scope.switchMode = function() {
+            $scope.darkMode = !$scope.darkMode;
+        };
+
         initialize();
 
         if (!autoSaveProvider.loadSuccess()) {
