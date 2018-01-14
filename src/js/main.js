@@ -9,8 +9,8 @@ $(function() {
 });
 
 Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "historyProvider", "helperService",
-    "loadSaveProvider", "expandService", "autoSaveProvider",
-    function($scope, $rootScope, pairChecker, history, helper, loadSave, expand, autoSaveProvider) {
+    "loadSaveProvider", "expandService", "autoSaveProvider", "localStorageService",
+    function($scope, $rootScope, pairChecker, history, helper, loadSave, expand, autoSaveProvider, localStorageService) {
         /*
 	 * Algus: 22:30
 	 * Valmis 1:30
@@ -19,10 +19,7 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
             {row: 1, data: [1, 1, 1, 2, 1, 3, 1, 4, 1]},
             {row: 2, data: [5, 1, 6, 1, 7, 1, 8, 1, 9]}];
 
-        $scope.darkMode = true;
-        $scope.switchMode = function() {
-            $scope.darkMode = !$scope.darkMode;
-        };
+        initMode();
 
         initialize();
 
@@ -79,5 +76,29 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
                 updateHelper();
                 $rootScope.$apply();
             });
+        }
+
+        function initMode() {
+            if (localStorageService.isSupported) {
+                try {
+                    $scope.darkMode = localStorageService.get("mode");
+                }
+                catch (e) {
+                    //
+                }
+            }
+
+            $scope.switchMode = function() {
+                $scope.darkMode = !$scope.darkMode;
+
+                if (localStorageService.isSupported) {
+                    try {
+                        localStorageService.set("mode", $scope.darkMode);
+                    }
+                    catch (e) {
+                        //
+                    }
+                }
+            };
         }
     }]);
