@@ -1,78 +1,73 @@
-Appy.factory('loadSaveProvider', function ($rootScope) {
+Appy.factory("loadSaveProvider", function($rootScope) {
+    var scope = {};
 
-	var scope = {};
+    scope.parseArray = function(data) {
+        $rootScope.table = [];
+        $rootScope.rowBlank = [];
+        var rowIndex = 0;
 
-	scope.parseArray = function (data) {
+        //		var previousRowNumber = data[0].row - 1;
+        for (var importDataIndex = 0; importDataIndex < data.length; importDataIndex++, rowIndex++) {
+            //			var newRowNumber = data[importDataIndex].row;
+            //			var rowDifference = newRowNumber - previousRowNumber;
+            //			if (rowDifference > 1) {
+            //				console.log("rowDifference", rowDifference);
+            //				while (rowDifference > 1) {
+            //					$rootScope.table.push([]);
+            //					$rootScope.rowBlank.push(true);
+            //					for (var col = 0; col < 9; col++) {
+            //						$rootScope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
+            //					}
+            //					rowDifference--;
+            //					rowIndex++;
+            //				}
+            //			}
 
-		$rootScope.table = [];
-		$rootScope.rowBlank = [];
-		var rowIndex = 0;
+            $rootScope.rowBlank.push(false);
 
-//		var previousRowNumber = data[0].row - 1;
-		for (var importDataIndex = 0; importDataIndex < data.length; importDataIndex++, rowIndex++) {
+            $rootScope.table.push({number: data[importDataIndex].row, data: []});
+            var rowArray = data[importDataIndex].data;
+            var tableRow = [];
+            for (var col = 0; col < rowArray.length; col++) {
+                tableRow.push({val: rowArray[col], selected: false, row: rowIndex, col: col});
+            }
 
-//			var newRowNumber = data[importDataIndex].row;
-//			var rowDifference = newRowNumber - previousRowNumber;
-//			if (rowDifference > 1) {
-//				console.log("rowDifference", rowDifference);
-//				while (rowDifference > 1) {
-//					$rootScope.table.push([]);
-//					$rootScope.rowBlank.push(true);
-//					for (var col = 0; col < 9; col++) {
-//						$rootScope.table[rowIndex].push({val: "", selected: false, row: rowIndex, col: col});
-//					}
-//					rowDifference--;
-//					rowIndex++;
-//				}
-//			}
+            $rootScope.table[rowIndex].data = tableRow;
 
-			$rootScope.rowBlank.push(false);
+            //			previousRowNumber = newRowNumber;
+        }
+    };
 
-			$rootScope.table.push({number: data[importDataIndex].row, data: []});
-			var rowArray = data[importDataIndex].data;
-			var tableRow = [];
-			for (var col = 0; col < rowArray.length; col++) {
-				tableRow.push({val: rowArray[col], selected: false, row: rowIndex, col: col});
-			}
+    scope.importTable = function(json) {
+        if (!json) {return;}
 
-			$rootScope.table[rowIndex].data = tableRow;
+        var parsed = JSON.parse(atob(json));
+        scope.parseArray(parsed);
+    };
 
-//			previousRowNumber = newRowNumber;
+    scope.exportTable = function() {
+        var tableSize = $rootScope.table.length;
+        var compressedTable = [];
 
-		}
-	};
+        for (var i = 0; i < tableSize; i++) {
+            if (!$rootScope.rowBlank[i]) {
+                compressedTable.push(getArrayOfElementsOnRow(i));
+            }
+        }
+        return btoa(JSON.stringify(compressedTable));
+    };
 
-	scope.importTable = function (json) {
-		if (!json) return;
+    function getArrayOfElementsOnRow(rowNumber) {
+        var elements = [];
+        var row = $rootScope.table[rowNumber];
 
-		var parsed = JSON.parse(atob(json));
-		scope.parseArray(parsed);
-	};
+        for (var i = 0; i < row.data.length; i++) {
+            elements.push(row.data[i].val);
+        }
 
-	scope.exportTable = function () {
-		var tableSize = $rootScope.table.length;
-		var compressedTable = [];
+        var rowObject = { row: row.number, data: elements};
+        return rowObject;
+    }
 
-		for (var i = 0; i < tableSize; i++) {
-			if (!$rootScope.rowBlank[i]) {
-				compressedTable.push(getArrayOfElementsOnRow(i));
-			}
-		}
-		return btoa(JSON.stringify(compressedTable));
-	};
-
-	var getArrayOfElementsOnRow = function (rowNumber) {
-		var elements = [];
-		var row = $rootScope.table[rowNumber];
-
-		for (var i = 0; i < row.data.length; i++) {
-			elements.push(row.data[i].val);
-		}
-
-		var rowObject = { row: row.number, data: elements};
-		return rowObject;
-	};
-
-
-	return scope;
+    return scope;
 });

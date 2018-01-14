@@ -1,47 +1,38 @@
-Appy.factory('helperService', function ($rootScope) {
+Appy.factory("helperService", function($rootScope) {
+    var scope = {};
+    scope.rowFinderModifier = 1.3;
 
-	var scope = {};
-	scope.rowFinderModifier = 1.3;
-	scope.printHelper = false;
+    scope.update = function() {
+        var firstHiddenRow = findFirstHiddenRow();
+        for (var i = 0; i < 9; i++) {
+            var activeRow = firstHiddenRow;
+            var foundNumber = "";
 
-	scope.update = function () {
-		var firstHiddenRow = findFirstHiddenRow();
-		for (var i = 0; i < 9; i++) {
-			var activeRow = firstHiddenRow;
-			var foundNumber = "";
+            while (activeRow >= 0 && !foundNumber) {
+                foundNumber = $rootScope.table[activeRow].data[i].val;
+                activeRow--;
+            }
 
-			while (activeRow >= 0 && !foundNumber) {
-				foundNumber = $rootScope.table[activeRow].data[i].val;
-				activeRow--;
-			}
+            $rootScope.helperNums[i] = foundNumber;
+        }
+    };
 
-			$rootScope.helperNums[i] = foundNumber;
-		}
-	};
+    function findFirstHiddenRow() {
+        var firstCell = $(".main-row tbody tr:first td:first");
+        var rowNumber = Math.floor(($("html").scrollTop() / (firstCell.height() + 3)) - scope.rowFinderModifier);
+        return findHiddenRowIndex(rowNumber);
+    }
 
-	var findFirstHiddenRow = function () {
-		var html = $("html");
-		var firstCell = $(".main-row tbody tr:first td:first");
+    function findHiddenRowIndex(firstHiddenRow) {
+        var index = 0;
+        while (firstHiddenRow >= 0) {
+            if (!$rootScope.rowBlank[index]) {
+                firstHiddenRow--;
+            }
+            index++;
+        }
+        return index;
+    }
 
-		var rowNumber = Math.floor(($("html").scrollTop() / (firstCell.height() + 3)) - scope.rowFinderModifier);
-		if (scope.printHelper) {
-			console.log($("html").scrollTop(), "/",  firstCell.height() + 3,
-					html.scrollTop() / firstCell.height(),
-					rowNumber);
-		}
-		return findHiddenRowIndex(rowNumber);
-	};
-
-	var findHiddenRowIndex = function (firstHiddenRow) {
-		var index = 0;
-		while (firstHiddenRow >= 0) {
-			if (!$rootScope.rowBlank[index]) {
-				firstHiddenRow--;
-			}
-			index++;
-		}
-		return index;
-	};
-
-	return scope;
+    return scope;
 });
