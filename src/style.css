@@ -15,14 +15,8 @@ table {
 	display: inline-block;
 }
 
-table thead th {
-	/* 	border-right: 1px solid #777; */
-}
-
 th,td {
 	border: 1px solid #777;
-	/* 	border-bottom: 0; */
-	/* 	border-right: 0; */
 	text-align: center;
 	width: 2em;
 	height: 3rem;
@@ -36,10 +30,6 @@ th,td {
 
 td:nth-child(4),td:nth-child(7) {
 	border-left: 3px solid #777;
-}
-
-button {
-	vertical-align: bottom;
 }
 
 .selected {
