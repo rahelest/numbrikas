@@ -60,7 +60,12 @@ button {
 	display: inline-block;
 }
 
+p {
+    font-size: 1.1rem;
+}
+
 h5 {
+    font-weight: normal;
     margin-bottom: 1rem;
 }
 

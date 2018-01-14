@@ -10,212 +10,198 @@
 	</head>
 	<body data-ng-cloak>
 		<div class="main-wrapper align-center">
-			<h2>Introduction</h2>
-			<p>Clear the board by finding pairs. Copy all the remaining cells to find new pairs by clicking <a href="#expand">expand</a>.</p>
+			<h4>Introduction</h4>
+			<p>Clear the board by finding pairs. Copy all the remaining cells to find new pairs by clicking expand.</p>
 			<h5>Pair is two equal numbers</h5>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td>5</td>
-						<td class="selected">1</td>
-						<td class="selected">1</td>
-						<td>2</td>
-						<td>1</td>
-						<td>3</td>
-						<td>1</td>
-						<td>4</td>
-						<td>1</td>
-					</tr>
-				</tbody>
+			<table>
+				<tr>
+					<td>5</td>
+					<td class="selected">1</td>
+					<td class="selected">1</td>
+					<td>2</td>
+					<td>1</td>
+					<td>3</td>
+					<td>1</td>
+					<td>4</td>
+					<td>1</td>
+				</tr>
 			</table>
 
 			<h5>or numbers that sum to 10</h5>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td></td>
-						<td class="selected">1</td>
-						<td></td>
-						<td class="selected">2</td>
-						<td></td>
-						<td class="selected">3</td>
-						<td></td>
-						<td class="selected">4</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td class="selected">9</td>
-						<td></td>
-						<td class="selected">8</td>
-						<td></td>
-						<td class="selected">7</td>
-						<td></td>
-						<td class="selected">6</td>
-						<td></td>
-					</tr>
-				</tbody>
+			<table>
+				<tr>
+					<td></td>
+					<td class="selected">1</td>
+					<td></td>
+					<td class="selected">2</td>
+					<td></td>
+					<td class="selected">3</td>
+					<td></td>
+					<td class="selected">4</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="selected">9</td>
+					<td></td>
+					<td class="selected">8</td>
+					<td></td>
+					<td class="selected">7</td>
+					<td></td>
+					<td class="selected">6</td>
+					<td></td>
+				</tr>
 			</table>
 
 			<h5>Pairs have to be adjacent</h5>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td class="selected">9</td>
-						<td class="selected">1</td>
-						<td></td>
-						<td class="selected">2</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="selected">2</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
+			<table>
+				<tr>
+					<td class="selected">9</td>
+					<td class="selected">1</td>
+					<td></td>
+					<td class="selected">2</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="selected">2</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 			</table>
 
 			<h5>Blank cells don't count</h5>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td></td>
-						<td class="selected">4</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="selected">1</td>
-						<td></td>
-						<td class="selected">1</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td class="selected">4</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
+			<table>
+				<tr>
+					<td></td>
+					<td class="selected">4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="selected">1</td>
+					<td></td>
+					<td class="selected">1</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="selected">4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 			</table>
 
 			<h5>Line breaks don't count either</h5>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>2</td>
-						<td></td>
-						<td></td>
-						<td>3</td>
-						<td class="selected">1</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="selected">1</td>
-						<td></td>
-						<td>4</td>
-						<td></td>
-						<td></td>
-						<td>5</td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
+			<table>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+					<td>3</td>
+					<td class="selected">1</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="selected">1</td>
+					<td></td>
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td>5</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 			</table>
 
 			<h5 id="expand">Out or pairs? "Expand" copies everything and you can find new combinations:</h5>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td>3</td>
-						<td>4</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>3</td>
-						<td></td>
-						<td>6</td>
-						<td>7</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td></td>
-						<td></td>
-						<td>3</td>
-						<td>4</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
+			<table>
+				<tr>
+					<td>3</td>
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>3</td>
+					<td></td>
+					<td>6</td>
+					<td>7</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td>3</td>
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 			</table>
-			<h6>Expand!</h6>
-			<table class="main-row">
-				<tbody>
-					<tr>
-						<td>3</td>
-						<td>4</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="selected">3</td>
-						<td></td>
-						<td>6</td>
-						<td>7</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td></td>
-						<td></td>
-						<td>3</td>
-						<td>4</td>
-						<td class="selected">3</td>
-						<td>4</td>
-						<td>3</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>1</td>
-						<td>3</td>
-						<td>4</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
+			<h5>Expand!</h5>
+			<table>
+				<tr>
+					<td>3</td>
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="selected">3</td>
+					<td></td>
+					<td>6</td>
+					<td>7</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td>3</td>
+					<td>4</td>
+					<td class="selected">3</td>
+					<td>4</td>
+					<td>3</td>
+					<td>6</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>1</td>
+					<td>3</td>
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 			</table>
 		</div>
 
