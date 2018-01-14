@@ -11,16 +11,11 @@ Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'his
 	 * Algus: 22:30
 	 * Valmis 1:30
 	 */
+     var init = [ {row: 0, data: [1, 2, 3, 4, 5, 6, 7, 8, 9]},
+                  {row: 1, data: [1, 1, 1, 2, 1, 3, 1, 4, 1]},
+                  {row: 2, data: [5, 1, 6, 1, 7, 1, 8, 1, 9]}];
 
-	var init = [ {row: 0, data: [1, 2, 3, 4, 5, 6, 7, 8, 9]},
-	             {row: 1, data: [1, 1, 1, 2, 1, 3, 1, 4, 1]},
-				 {row: 2, data: [5, 1, 6, 1, 7, 1, 8, 1, 9]}];
-
-	$rootScope.table = [];
-	$rootScope.rowBlank = [];
-
-	$rootScope.helperNums = {};
-	$rootScope.firstHiddenRow = 0;
+    initialize();
 
     if (!autoSaveProvider.loadSuccess()) {
         loadSave.parseArray(init);
@@ -32,8 +27,21 @@ Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'his
 		helper.update();
 	};
 
+    function initialize() {
+        $rootScope.table = [];
+        $rootScope.rowBlank = [];
+
+        $rootScope.helperNums = {};
+        $rootScope.firstHiddenRow = 0;
+    }
+
   function connectHandlers() {
     $scope.select = pairChecker.select;
+
+    $scope.restart =  function () {
+        loadSave.parseArray(init);
+        autoSaveProvider.save();
+    };
 
     $scope.expand = function () {
       expand.expand();
