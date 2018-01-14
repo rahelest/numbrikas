@@ -4,7 +4,10 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 
 	var selectedCells = [];
 
-	scope.select = function (cell, table, rowBlank) {
+	scope.select = function (event, cell, table, rowBlank) {
+		event.preventDefault();
+		event.stopPropagation();
+
 		cell.selected = !cell.selected;
 
 		if (cell.selected) {
