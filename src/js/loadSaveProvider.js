@@ -43,6 +43,8 @@ Appy.factory("loadSaveProvider", function($rootScope) {
 
         var parsed = JSON.parse(atob(json));
         scope.parseArray(parsed);
+
+        return true;
     };
 
     scope.exportTable = function() {

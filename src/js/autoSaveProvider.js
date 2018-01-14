@@ -5,8 +5,7 @@ Appy.factory("autoSaveProvider", ["loadSaveProvider", "localStorageService", fun
         if (localStorageService.isSupported) {
             try {
                 var data = localStorageService.get("save");
-                loadSaveProvider.importTable(data);
-                return true;
+                return loadSaveProvider.importTable(data);
             }
             catch (e) {
                 // Porn mode, I guess.
