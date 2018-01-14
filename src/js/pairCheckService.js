@@ -1,4 +1,4 @@
-Appy.factory('pairChecker', ['historyProvider', 'helperService', function (history, helper) {
+Appy.factory('pairChecker', ['historyProvider', 'helperService', "autoSaveProvider", function (history, helper, autoSaveProvider) {
 
 	var scope = {};
 
@@ -31,6 +31,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 		}
 
 		helper.update();
+		autoSaveProvider.save();
 	};
 
 	var checkSelected = function (table, rowBlank) {

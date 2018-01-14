@@ -1,7 +1,11 @@
-window.Appy = angular.module('numberApp', []);
+window.Appy = angular.module('numberApp', ["LocalStorageModule"]);
 
-Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'historyProvider', 'helperService', 'loadSaveProvider', 'expandService',
-                                     function ($scope, $rootScope, pairChecker, history, helper, loadSave, expand) {
+Appy.config(function(localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix("numbers19");
+});
+
+Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'historyProvider', 'helperService', 'loadSaveProvider', 'expandService', "autoSaveProvider",
+                                     function ($scope, $rootScope, pairChecker, history, helper, loadSave, expand, autoSaveProvider) {
 
 	/*
 	 * Algus: 22:30
@@ -18,7 +22,9 @@ Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'his
 	$rootScope.helperNums = {};
 	$rootScope.firstHiddenRow = 0;
 
-	loadSave.parseArray(init);
+    if (!autoSaveProvider.loadSuccess()) {
+        loadSave.parseArray(init);
+    }
 
   connectHandlers();
 
@@ -34,6 +40,8 @@ Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'his
 
       $scope.helperNeeded = true;
       updateHelper();
+
+      autoSaveProvider.save();
     };
 
     $scope.parse = function () {

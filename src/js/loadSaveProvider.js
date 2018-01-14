@@ -45,7 +45,7 @@ Appy.factory('loadSaveProvider', function ($rootScope) {
 	scope.importTable = function (json) {
 		if (!json) return;
 
-		var parsed = JSON.parse(json);
+		var parsed = JSON.parse(atob(json));
 		scope.parseArray(parsed);
 	};
 
@@ -58,8 +58,7 @@ Appy.factory('loadSaveProvider', function ($rootScope) {
 				compressedTable.push(getArrayOfElementsOnRow(i));
 			}
 		}
-
-		return JSON.stringify(compressedTable);
+		return btoa(JSON.stringify(compressedTable));
 	};
 
 	var getArrayOfElementsOnRow = function (rowNumber) {
