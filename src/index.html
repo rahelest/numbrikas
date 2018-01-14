@@ -32,24 +32,24 @@
 		</div>
 
 		<div class="main-wrapper">
-				<table class="main-row">
-					<thead>
-						<tr>
-							<td colspan="9">Find pairs where m = n or m + n = 10</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr data-ng-repeat="row in table track by $index"
-							data-ng-hide="rowBlank[$index]">
-							<td data-ng-repeat="cell in row.data track by $index"
-								data-ng-click="select(cell, table, rowBlank);"
-								data-ng-class="{selected: cell.selected}">
-								<div class="cellValue">{{ cell.val }}</div>
-								<div class="small">{{ cell.row }}, {{ cell.col }}</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<table class="main-row">
+				<thead>
+					<tr>
+						<td colspan="9">Find pairs where m = n or m + n = 10</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="row in table track by $index"
+						data-ng-hide="rowBlank[$index]">
+						<td data-ng-repeat="cell in row.data track by $index"
+							data-ng-click="select(cell, table, rowBlank);"
+							data-ng-class="{selected: cell.selected}">
+							<div class="cellValue">{{ cell.val }}</div>
+							<div class="small">{{ cell.row }}, {{ cell.col }}</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<script src="lib/jquery.min.js"></script>
