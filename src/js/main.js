@@ -57,13 +57,6 @@ Appy.controller("numberController", ['$scope', '$rootScope', '$resource', 'pairC
 
     $scope.undo = history.undo;
 
-    $("html").keyup(function (e) {
-      if (e.which == 69) {
-        updateHelper();
-        $rootScope.$apply();
-      }
-    });
-
     $(window).scroll(function () {
       updateHelper();
       $rootScope.$apply();
