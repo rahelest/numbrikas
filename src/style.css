@@ -60,6 +60,10 @@ button {
 	display: inline-block;
 }
 
+h5 {
+    margin-bottom: 1rem;
+}
+
 .menu {
 	background-color: rgba(255, 255, 255, 0.6);
 	bottom: 0;
