@@ -1,4 +1,4 @@
-Appy.factory('historyProvider', function () {
+Appy.factory('historyProvider', ["$rootScope", function ($rootScope) {
 
 	var scope = {};
 
@@ -28,13 +28,12 @@ Appy.factory('historyProvider', function () {
 	scope.undo = function () {
 		var step = history.pop();
 		if (step) {
-
 			for (var i = 0; i < step.length; i++) {
 				var cell = step[i].cell;
 				cell.val = step[i].val;
 				var row = cell.row;
 				if (step[i].isMadeBlank) {
-					variables.rowBlank[row] = false;
+					$rootScope.rowBlank[row] = false;
 				}
 			}
 		}
@@ -42,4 +41,4 @@ Appy.factory('historyProvider', function () {
 
 
 	return scope;
-});
+}]);
