@@ -6,7 +6,6 @@ Appy.factory('helperService', function ($rootScope) {
 
 	scope.update = function () {
 		var firstHiddenRow = findFirstHiddenRow();
-		$rootScope.firstHiddenRowNumber = $rootScope.table[firstHiddenRow].number;
 		for (var i = 0; i < 9; i++) {
 			var activeRow = firstHiddenRow;
 			var foundNumber = "";

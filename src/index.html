@@ -31,7 +31,6 @@
 			<table>
 				<tr>
 					<td data-ng-repeat="cell in helperNums track by $index">{{ cell }}</td>
-					<td class="index">{{ firstHiddenRowNumber }}</td>
 				</tr>
 			</table>
 		</div>
@@ -42,7 +41,7 @@
 				<table class="main-row">
 					<thead>
 						<tr>
-							<td colspan="10">Find pairs where m = n or m + n = 10</td>
+							<td colspan="9">Find pairs where m = n or m + n = 10</td>
 						</tr>
 					</thead>
 
@@ -56,7 +55,6 @@
 								<div class="cellValue">{{ cell.val }}</div>
 								<div class="small">{{ cell.row }}, {{ cell.col }}</div>
 							</td>
-							<td class="index">{{ row.number + 1 }}</td>
 						</tr>
 
 					</tbody>
