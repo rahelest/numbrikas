@@ -5,7 +5,7 @@
 }
 
 body {
-	font-size: 2em;
+	font-size: 2rem;
 	margin: 0;
 	padding: 0;
 }
@@ -25,7 +25,7 @@ th,td {
 	/* 	border-right: 0; */
 	text-align: center;
 	width: 2em;
-	height: 2em;
+	height: 3rem;
 	cursor: pointer;
 
 	-webkit-user-select: none;  /* Chrome all / Safari all */
@@ -51,9 +51,9 @@ input,button {
 	border: 1px solid #0000FF;
 	border-radius: 5px;
 	color: #00008B;
-	padding: 0.5em 1em;
+	padding: 0.5rem 1rem;
 	display: block;
-	margin: 0.5em;
+	margin: 0.5rem;
 }
 
 input[disabled], button[disabled] {
@@ -73,14 +73,14 @@ button {
 
 .menu button.smaller {
 	display: inline-block;
-	margin: 0.5em 0;
-	padding: 0.5em 0.3em;
+	margin: 0.5rem 0;
+	padding: 0.5rem 0.3rem;
 	width: auto;
 }
 
 .main-wrapper {
 	display: block;
-	padding-bottom: 2em;
+	padding-bottom: 2rem;
 	text-align: center;
 }
 
@@ -100,7 +100,7 @@ button {
 }
 
 .helper td {
-	height: 1em;
+	height: 2rem;
 }
 
 .fixed-center {
