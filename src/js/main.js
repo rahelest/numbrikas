@@ -22,13 +22,6 @@ Appy.controller("numberController", ['$scope', '$rootScope', '$resource', 'pairC
 
   connectHandlers();
 
-	$scope.write = function (text) {
-		$scope.msgs.push(text);
-	};
-
-	$scope.msgs = [];
-
-
 	var updateHelper = function () {
 		helper.update();
 	};
