@@ -10,17 +10,17 @@
 	</head>
 	<body data-ng-cloak>
 		<div class="menu fixed-center">
-			<button data-ng-click="save(); showTextArea = true">Export</button>
-			<button data-ng-hide="showTextArea" data-ng-click="showTextArea = true">Import</button>
+			<!-- <button data-ng-click="save(); showTextArea = true">Export</button> -->
+			<!-- <button data-ng-hide="showTextArea" data-ng-click="showTextArea = true">Import</button> -->
 
-			<div class="inline" data-ng-show="showTextArea">
+			<!-- <div class="inline" data-ng-show="showTextArea">
 				<textarea data-ng-model="json"></textarea>
 				<button class="smaller" data-ng-click="parse()">Load</button>
 				<button class="smaller" data-ng-click="showTextArea = false;">Cancel</button>
-			</div>
+			</div> -->
 
-			<button data-ng-click="expand()">Expand</button>
 			<button data-ng-click="undo()" data-ng-disable="history.length == 0">Undo</button>
+			<button data-ng-click="expand()">Expand</button>
 		</div>
 
 		<div class="helper fixed-center" data-ng-show="helperNeeded">
