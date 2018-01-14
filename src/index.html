@@ -44,7 +44,7 @@
 					<tr data-ng-repeat="row in table track by $index"
 						data-ng-hide="rowBlank[$index]">
 						<td data-ng-repeat="cell in row.data track by $index"
-							data-ng-click="select(cell, table, rowBlank);"
+							data-ng-mouseup="select(cell, table, rowBlank);"
 							data-ng-class="{selected: cell.selected}">
 							<div class="cellValue">{{ cell.val }}</div>
 						</td>
