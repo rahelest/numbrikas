@@ -11,14 +11,14 @@ body {
 }
 
 table {
-	border-collapse: collapse;
-	display: inline-block;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
 }
 
 th,td {
 	border: 1px solid #777;
 	text-align: center;
-	width: 2em;
 	height: 3rem;
 	cursor: pointer;
 
@@ -74,6 +74,11 @@ button {
 	text-align: center;
 }
 
+.align-center {
+    max-width: 630px;
+    margin: 0 auto;
+}
+
 .main-wrapper>div {
 	display: inline-block;
 }
@@ -82,6 +87,7 @@ button {
 	background-color: rgba(255, 255, 255, 0.9);
 	height: 42px;
 	top: 0;
+    font-size: 1.25rem;
 }
 
 .helper table {
