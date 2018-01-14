@@ -9,9 +9,7 @@
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body data-ng-cloak>
-
 		<div class="menu fixed-center">
-
 			<button data-ng-click="save(); showTextArea = true">Export</button>
 			<button data-ng-hide="showTextArea" data-ng-click="showTextArea = true">Import</button>
 
@@ -23,8 +21,6 @@
 
 			<button data-ng-click="expand()">Expand</button>
 			<button data-ng-click="undo()" data-ng-disable="history.length == 0">Undo</button>
-
-
 		</div>
 
 		<div class="helper fixed-center" data-ng-show="helperNeeded">
@@ -36,17 +32,13 @@
 		</div>
 
 		<div class="main-wrapper">
-
-			<div>
 				<table class="main-row">
 					<thead>
 						<tr>
 							<td colspan="9">Find pairs where m = n or m + n = 10</td>
 						</tr>
 					</thead>
-
 					<tbody>
-
 						<tr data-ng-repeat="row in table track by $index"
 							data-ng-hide="rowBlank[$index]">
 							<td data-ng-repeat="cell in row.data track by $index"
@@ -56,9 +48,7 @@
 								<div class="small">{{ cell.row }}, {{ cell.col }}</div>
 							</td>
 						</tr>
-
 					</tbody>
-
 				</table>
 		</div>
 
