@@ -96,13 +96,14 @@ button {
 }
 
 .helper {
+	background-color: rgba(255, 255, 255, 0.9);
 	height: 42px;
 	top: 0;
 }
 
 .helper table {
 	background-color: #f2f2f2;
-	margin: 11px;
+	margin: 11px 0;
 }
 
 .helper td {
