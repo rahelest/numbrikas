@@ -1,7 +1,7 @@
-window.Appy = angular.module('numberApp', ["ngResource"]);
+window.Appy = angular.module('numberApp', []);
 
-Appy.controller("numberController", ['$scope', '$rootScope', '$resource', 'pairChecker', 'historyProvider', 'helperService', 'loadSaveProvider', 'expandService',
-                                     function ($scope, $rootScope, $resource, pairChecker, history, helper, loadSave, expand) {
+Appy.controller("numberController", ['$scope', '$rootScope', 'pairChecker', 'historyProvider', 'helperService', 'loadSaveProvider', 'expandService',
+                                     function ($scope, $rootScope, pairChecker, history, helper, loadSave, expand) {
 
 	/*
 	 * Algus: 22:30
