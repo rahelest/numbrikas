@@ -26,12 +26,12 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 				// console.log("KUIDAS?? selectedCells.len != 1");
 			}
 		}
-		
+
 		helper.update();
 	};
 
 	var checkSelected = function (table, rowBlank) {
-		// kohakuti, kõrvuti
+		// kohakuti, kï¿½rvuti
 
 		var cell1 = selectedCells[0];
 		var cell2 = selectedCells[1];
@@ -64,7 +64,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 	};
 
 	var verticallyOK = function (table, rowBlank) {
-		// kohakuti juba ära olnud
+		// kohakuti juba ï¿½ra olnud
 
 		var cell1 = selectedCells[0];
 		var cell2 = selectedCells[1];
@@ -73,7 +73,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 			return false;
 		}
 
-		if (cell1.row > cell2.row) { // ülevalpool olev esimeseks
+		if (cell1.row > cell2.row) { // ï¿½levalpool olev esimeseks
 			var temp = cell1;
 			cell1 = cell2;
 			cell2 = temp;
@@ -91,7 +91,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 	};
 
 	var horizontallyOK = function (table, rowBlank) {
-		// kõrvuti on juba ära olnud
+		// kï¿½rvuti on juba ï¿½ra olnud
 
 		var cell1 = selectedCells[0];
 		var cell2 = selectedCells[1];
@@ -117,7 +117,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 				// kaugemal kui kohakuti read
 				for (var row = cell1.row + 1; row < cell2.row; row++) {
 					if (!rowBlank[row]) {
-						// antud rida ei ole tühi
+						// antud rida ei ole tï¿½hi
 						return false;
 					}
 				}
@@ -159,7 +159,7 @@ Appy.factory('pairChecker', ['historyProvider', 'helperService', function (histo
 		for (var i = 0; i < 2; i++) {
 			var row = table[rows[i]].data;
 			var valueFound = false;
-			
+
 			for (var col = 0; col < 9; col++) {
 				if (!row[col] || row[col].val != "") {
 					valueFound = true;
