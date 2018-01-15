@@ -123,9 +123,21 @@ h5 {
 	display: inline-block;
 }
 
-.dark {
+.dark, .dark .helper, .dark button {
     background-color: #222;
     color: #f2f2f2;
+}
+
+.dark button {
+    border: 1px solid #83dbf8;
+}
+
+.dark .menu {
+    background-color: rgba(0, 0, 0, 0.6)
+}
+
+.dark .helper table {
+    background-color: #333;
 }
 
 .dark .selected {
