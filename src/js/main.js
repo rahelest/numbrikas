@@ -23,15 +23,15 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
 
         initialize();
 
-        if (!autoSaveProvider.loadSuccess()) {
+        if (autoSaveProvider.loadSuccess()) {
+            $scope.helperNeeded = true;
+            helper.update();
+        }
+        else {
             loadSave.parseArray(init);
         }
 
         connectHandlers();
-
-        var updateHelper = function() {
-            helper.update();
-        };
 
         function initialize() {
             $rootScope.table = [];
@@ -53,7 +53,7 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
                 expand.expand();
 
                 $scope.helperNeeded = true;
-                updateHelper();
+                helper.update();
 
                 autoSaveProvider.save();
             };
@@ -63,7 +63,7 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
                 loadSave.importTable(json);
 
                 $scope.helperNeeded = true;
-                updateHelper();
+                helper.update();
             };
 
             $scope.save = function() {
@@ -73,7 +73,7 @@ Appy.controller("numberController", ["$scope", "$rootScope", "pairChecker", "his
             $scope.undo = history.undo;
 
             $(window).scroll(function() {
-                updateHelper();
+                helper.update();
                 $rootScope.$apply();
             });
         }
