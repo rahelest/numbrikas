@@ -4,9 +4,14 @@ Appy.factory("helperService", function($rootScope) {
 
     scope.update = function() {
         var firstHiddenRow = findFirstHiddenRow();
+
         for (var i = 0; i < 9; i++) {
             var activeRow = firstHiddenRow;
             var foundNumber = "";
+
+            if ($rootScope.table.length < activeRow) {
+                return;
+            }
 
             while (activeRow >= 0 && !foundNumber) {
                 foundNumber = $rootScope.table[activeRow].data[i].val;
