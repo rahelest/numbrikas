@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
+    "dev:open": "vite dev  --host --port 3333",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -12,7 +13,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "1.0.0-next.87",
+    "@sveltejs/adapter-static": "1.0.0-next.48",
     "@sveltejs/kit": "1.0.0-next.539",
     "@types/cookie": "0.5.1",
     "@typescript-eslint/eslint-plugin": "5.42.1",
