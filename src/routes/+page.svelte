@@ -31,11 +31,11 @@
       const maybeUpdatedTable = checkPair($table, $firstSelectedCellIndex, index)
       moveHistory.update((old) => [...old, $table])
       table.set(maybeUpdatedTable)
+      firstSelectedCellIndex.set(undefined)
     } catch (error) {
       console.error(error)
       // No match
-    } finally {
-      firstSelectedCellIndex.set(undefined)
+      firstSelectedCellIndex.set(index)
     }
   }
 
