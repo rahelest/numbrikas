@@ -6,54 +6,54 @@
   </p>
   <h5>Pair is two equal numbers</h5>
   <div class="main__table">
-    <button>5</button>
-    <button class="selected">1</button>
-    <button class="selected">1</button>
-    <button>2</button>
-    <button class="selected">3</button>
-    <button class="selected">3</button>
-    <button>1</button>
-    <button class="selected">5</button>
-    <button class="selected">5</button>
+    <button class="five">5</button>
+    <button class="selected one">1</button>
+    <button class="selected one">1</button>
+    <button class="two">2</button>
+    <button class="selected three">3</button>
+    <button class="selected three">3</button>
+    <button class="one">1</button>
+    <button class="selected five">5</button>
+    <button class="selected five">5</button>
   </div>
 
   <h5>or numbers that sum to 10</h5>
   <div class="main__table">
     <button />
-    <button class="selected">1</button>
+    <button class="selected one">1</button>
     <button />
-    <button class="selected">2</button>
+    <button class="selected two">2</button>
     <button />
-    <button class="selected">3</button>
+    <button class="selected three">3</button>
     <button />
-    <button class="selected">4</button>
+    <button class="selected four">4</button>
     <button />
     <button />
-    <button class="selected">9</button>
+    <button class="selected one">9</button>
     <button />
-    <button class="selected">8</button>
+    <button class="selected two">8</button>
     <button />
-    <button class="selected">7</button>
+    <button class="selected three">7</button>
     <button />
-    <button class="selected">6</button>
+    <button class="selected four">6</button>
     <button />
   </div>
 
   <h5>Pairs have to be adjacent</h5>
   <div class="main__table">
-    <button class="selected">9</button>
-    <button class="selected">1</button>
+    <button class="selected one">9</button>
+    <button class="selected one">1</button>
     <button />
-    <button class="selected">2</button>
-    <button />
-    <button />
+    <button class="selected two">2</button>
     <button />
     <button />
     <button />
     <button />
     <button />
     <button />
-    <button class="selected">2</button>
+    <button />
+    <button />
+    <button class="selected two">2</button>
     <button />
     <button />
     <button />
@@ -64,17 +64,13 @@
   <h5>Blank cells don't count</h5>
   <div class="main__table">
     <button />
-    <button class="selected">4</button>
+    <button class="selected four">4</button>
     <button />
     <button />
     <button />
-    <button class="selected">1</button>
+    <button class="selected one">1</button>
     <button />
-    <button class="selected">1</button>
-    <button />
-    <button />
-    <button />
-    <button />
+    <button class="selected one">1</button>
     <button />
     <button />
     <button />
@@ -82,7 +78,11 @@
     <button />
     <button />
     <button />
-    <button class="selected">4</button>
+    <button />
+    <button />
+    <button />
+    <button />
+    <button class="selected four">4</button>
     <button />
     <button />
     <button />
@@ -97,18 +97,18 @@
     <button />
     <button />
     <button />
-    <button>2</button>
+    <button class="two">2</button>
     <button />
     <button />
-    <button>3</button>
-    <button class="selected">1</button>
+    <button class="three">3</button>
+    <button class="selected one">1</button>
     <button />
-    <button class="selected">1</button>
+    <button class="selected one">1</button>
     <button />
-    <button>4</button>
+    <button class="four">4</button>
     <button />
     <button />
-    <button>5</button>
+    <button class="five">5</button>
     <button />
     <button />
     <button />
@@ -116,20 +116,20 @@
 
   <h5 id="expand">Out or pairs? "Expand" copies everything and you can find new combinations. Before:</h5>
   <div class="main__table">
-    <button>3</button>
-    <button>4</button>
+    <button class="three">3</button>
+    <button class="four">4</button>
     <button />
     <button />
     <button />
-    <button>3</button>
+    <button class="three">3</button>
     <button />
-    <button>6</button>
-    <button>7</button>
-    <button>1</button>
+    <button class="four">6</button>
+    <button class="three">7</button>
+    <button class="one">1</button>
     <button />
     <button />
-    <button>3</button>
-    <button>4</button>
+    <button class="three">3</button>
+    <button class="four">4</button>
     <button />
     <button />
     <button />
@@ -137,28 +137,28 @@
   </div>
   <h5>After:</h5>
   <div class="main__table">
-    <button>3</button>
-    <button>4</button>
+    <button class="three">3</button>
+    <button class="four">4</button>
     <button />
     <button />
     <button />
-    <button>3</button>
+    <button class="three">3</button>
     <button />
-    <button>6</button>
-    <button>7</button>
-    <button>1</button>
+    <button class="four">6</button>
+    <button class="three">7</button>
+    <button class="one">1</button>
     <button />
     <button />
-    <button>3</button>
-    <button>4</button>
-    <button class="highlighted">3</button>
-    <button class="highlighted">4</button>
-    <button class="highlighted">3</button>
-    <button class="highlighted">6</button>
-    <button class="highlighted">7</button>
-    <button class="highlighted">1</button>
-    <button class="highlighted">3</button>
-    <button class="highlighted">4</button>
+    <button class="three">3</button>
+    <button class="four">4</button>
+    <button class="highlighted three">3</button>
+    <button class="highlighted four">4</button>
+    <button class="highlighted three">3</button>
+    <button class="highlighted four">6</button>
+    <button class="highlighted three">7</button>
+    <button class="highlighted one">1</button>
+    <button class="highlighted three">3</button>
+    <button class="highlighted four">4</button>
     <button />
     <button />
     <button />

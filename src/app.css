@@ -11,9 +11,13 @@ body {
   padding: 0;
 }
 
-.selected {
-  background-color: #ddd;
-}
+.one { background-color: #cdcdff;}
+.two { background-color: #99faff;}
+.three { background-color: #99ffaa;}
+.four { background-color: #f3ff99;}
+.five { background-color: #ffd599;}
+
+.selected {box-shadow: 0 0 4px 1px black inset;}
 
 button {
   background-color: #ffffff;
@@ -92,10 +96,6 @@ h5 {
   .main__menu {
     background-color: #333;
   }
-
-  .selected {
-    background-color: #555;
-  }
 }
 
 .dark {
@@ -110,8 +110,4 @@ h5 {
 
 .dark .main__menu {
   background-color: rgba(0, 0, 0, 0.6);
-}
-
-.dark .selected {
-  background-color: #555;
 }

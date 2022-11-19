@@ -49,7 +49,7 @@
   }
 
   const toggleDarkMode = () => {
-    isDarkMode.update(old => !old)
+    isDarkMode.update((old) => !old)
     document.body.classList.toggle('dark')
   }
 </script>
@@ -72,6 +72,11 @@
           on:click={cell ? () => select(index) : undefined}
           class:selected={$firstSelectedCellIndex === index}
           class:notEmpty={cell > 0}
+          class:one={[1, 9].includes(cell)}
+          class:two={[2, 8].includes(cell)}
+          class:three={[3, 7].includes(cell)}
+          class:four={[4, 6].includes(cell)}
+          class:five={[5].includes(cell)}
         >
           {cell || ' '}
         </button>
@@ -87,5 +92,4 @@
     top: 0;
     z-index: 1;
   }
-
 </style>
