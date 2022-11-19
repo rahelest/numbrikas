@@ -7,7 +7,7 @@ export const firstSelectedCellIndex = writable<number | undefined>()
 export const moveHistory = writable<SavedTable[]>([])
 
 moveHistory.subscribe((value) => {
-  if (value.length > 10) {
+  if (value.length > 20) {
     moveHistory.update((old) => old.slice(1))
   }
 })
