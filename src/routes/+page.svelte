@@ -52,6 +52,17 @@
     isDarkMode.update((old) => !old)
     document.body.classList.toggle('dark')
   }
+
+  let selectionTimeout = undefined
+  const startSelection = (index) => {
+    selectionTimeout = setTimeout(() => {
+      select(index)
+    }, 200)
+  }
+
+  const endSelection = () => {
+    clearTimeout(selectionTimeout)
+  }
 </script>
 
 <template>
@@ -68,18 +79,24 @@
     </p>
     <div class="main__table">
       {#each $table as cell, index}
-        <button
-          on:click={cell ? () => select(index) : undefined}
-          class:selected={$firstSelectedCellIndex === index}
-          class:notEmpty={cell > 0}
-          class:one={[1, 9].includes(cell)}
-          class:two={[2, 8].includes(cell)}
-          class:three={[3, 7].includes(cell)}
-          class:four={[4, 6].includes(cell)}
-          class:five={[5].includes(cell)}
-        >
-          {cell || ' '}
-        </button>
+        {#if cell}
+          <button
+            class="notEmpty"
+            on:click={cell ? () => select(index) : undefined}
+            on:mouseenter={() => startSelection(index)}
+            on:mouseleave={() => endSelection()}
+            class:selected={$firstSelectedCellIndex === index}
+            class:one={[1, 9].includes(cell)}
+            class:two={[2, 8].includes(cell)}
+            class:three={[3, 7].includes(cell)}
+            class:four={[4, 6].includes(cell)}
+            class:five={[5].includes(cell)}
+          >
+            {cell}
+          </button>
+        {:else}
+          <button />
+        {/if}
       {/each}
     </div>
   </div>
