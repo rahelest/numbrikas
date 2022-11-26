@@ -68,19 +68,18 @@ h5 {
 
 .main__table {
   display: grid;
-  font-size: 20px;
-  grid-template-columns: repeat(9, 40px);
+  font-size: 24px;
+  grid-template-columns: repeat(9, 50px);
   border-top: 1px solid #aaa;
   border-left: 1px solid #aaa;
 }
 
 .main__table button {
   position: relative;
-  height: 40px;
+  height: 50px;
   border: 1px solid #aaa;
   border-width: 0 1px 1px 0;
   cursor: default;
-  font-size: 20px;
 }
 
 @media (prefers-color-scheme: dark) {
