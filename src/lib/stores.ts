@@ -5,6 +5,7 @@ import type { SavedTable } from './models'
 
 export const firstSelectedCellIndex = writable<number | undefined>()
 export const moveHistory = writable<SavedTable[]>([])
+export const moveFuture = writable<SavedTable[]>([])
 
 moveHistory.subscribe((value) => {
   if (value.length > 20) {

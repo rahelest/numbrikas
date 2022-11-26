@@ -1,16 +1,21 @@
 <script lang="ts">
-  import { firstSelectedCellIndex, isDarkMode, moveHistory, table } from "../lib/stores";
+  import {firstSelectedCellIndex, isDarkMode, moveFuture, moveHistory, table} from "../lib/stores";
   import { getNewEmptyTable } from "../lib/tableSchema";
   import { checkPair } from "../lib/checkPair";
 
-  const restart = () => {
+  const saveToHistory = ()=> {
     moveHistory.update((old) => [...old, $table])
+    moveFuture.set([])
+  }
+
+  const restart = () => {
+    saveToHistory()
     table.set(getNewEmptyTable())
     firstSelectedCellIndex.set(undefined)
   }
 
   const expand = () => {
-    moveHistory.update((old) => [...old, $table])
+    saveToHistory()
     table.update((oldTable) => {
       return oldTable.slice(0).concat(...oldTable.filter((n) => n > 0))
     })
@@ -29,7 +34,7 @@
 
     try {
       const maybeUpdatedTable = checkPair($table, $firstSelectedCellIndex, index)
-      moveHistory.update((old) => [...old, $table])
+      saveToHistory()
       table.set(maybeUpdatedTable)
       firstSelectedCellIndex.set(undefined)
     } catch (error) {
@@ -44,6 +49,17 @@
       firstSelectedCellIndex.set(undefined)
       const lastState = $moveHistory[$moveHistory.length - 1]
       moveHistory.update((old) => old.slice(0, $moveHistory.length - 1))
+      moveFuture.update(old => [$table, ...old])
+      table.set(lastState)
+    }
+  }
+
+  const redo = () => {
+    if ($moveFuture.length >0) {
+      firstSelectedCellIndex.set(undefined)
+      const lastState = $moveFuture[0]
+      moveFuture.update((old) => old.slice(1))
+      moveHistory.update(old => [...old, $table])
       table.set(lastState)
     }
   }
@@ -68,6 +84,7 @@
 <template>
   <div class="main__menu">
     <button on:click={undo} disabled={!$moveHistory.length}>Undo</button>
+    <button on:click={redo} disabled={!$moveFuture.length}>Redo</button>
     <button on:click={expand}>Expand</button>
     <button on:click={restart}>Restart</button>
     <button on:click={toggleDarkMode}>Dark/Light</button>
