@@ -98,7 +98,7 @@
       {#each $table as cell, index}
         {#if cell}
           <button
-            class="notEmpty"
+            class="cell notEmpty"
             on:click={cell ? () => select(index) : undefined}
             on:mouseenter={() => startSelection(index)}
             on:mouseleave={() => endSelection()}
@@ -112,7 +112,7 @@
             {cell}
           </button>
         {:else}
-          <button />
+          <div class="cell" />
         {/if}
       {/each}
     </div>

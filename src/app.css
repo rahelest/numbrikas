@@ -91,7 +91,7 @@ h5 {
   border-left: 1px solid #aaa;
 }
 
-.main__table button {
+.cell {
   position: relative;
   height: 50px;
   border: 1px solid #aaa;
@@ -105,7 +105,7 @@ h5 {
     font-size: 5vw;
   }
 
-  .main__table button {
+  .cell {
     height: 10vw;
   }
 
