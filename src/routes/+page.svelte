@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {firstSelectedCellIndex, isDarkMode, moveFuture, moveHistory, table} from "../lib/stores";
+  import { firstSelectedCellIndex, isDarkMode, isHoverMode, moveFuture, moveHistory, table } from "../lib/stores";
   import { getNewEmptyTable } from "../lib/tableSchema";
   import { checkPair } from "../lib/checkPair";
 
@@ -69,6 +69,10 @@
     document.body.classList.toggle('dark')
   }
 
+  const toggleHoverMode = () => {
+    isHoverMode.update((old) => !old)
+  }
+
   let selectionTimeout = undefined
   const startSelection = (index) => {
     selectionTimeout = setTimeout(() => {
@@ -88,6 +92,7 @@
     <button on:click={expand}>Expand</button>
     <button on:click={restart}>Restart</button>
     <button on:click={toggleDarkMode}>Dark/Light</button>
+    <button on:click={toggleHoverMode}>{$isHoverMode ? 'Hover' : 'Click'}</button>
   </div>
 
   <div class="main__wrapper">
@@ -100,8 +105,8 @@
           <button
             class="cell notEmpty"
             on:click={cell ? () => select(index) : undefined}
-            on:mouseenter={() => startSelection(index)}
-            on:mouseleave={() => endSelection()}
+            on:mouseenter={$isHoverMode ? () => startSelection(index) : undefined}
+            on:mouseleave={$isHoverMode ? () => endSelection() : undefined}
             class:selected={$firstSelectedCellIndex === index}
             class:one={[1, 9].includes(cell)}
             class:two={[2, 8].includes(cell)}

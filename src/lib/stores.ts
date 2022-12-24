@@ -26,6 +26,19 @@ isDarkMode.subscribe((value) => {
   }
 })
 
+const initialIsHoverMode = readFromStorage(
+  'isHoverMode',
+  false,
+  (value) => value === true || value === false,
+)
+export const isHoverMode = writable<boolean>(initialIsHoverMode)
+
+isHoverMode.subscribe((value) => {
+  if (browser) {
+    window.localStorage.setItem('isHoverMode', String(value))
+  }
+})
+
 const initialTable = readFromStorage('save', getNewEmptyTable(), (value) => isTableValid(value))
 export const table = writable<SavedTable>(initialTable)
 table.subscribe((value) => {
