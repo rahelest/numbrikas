@@ -38,7 +38,7 @@
       table.set(maybeUpdatedTable)
       firstSelectedCellIndex.set(undefined)
     } catch (error) {
-      console.error(error)
+      // console.error(error)
       // No match
       firstSelectedCellIndex.set(index)
     }
