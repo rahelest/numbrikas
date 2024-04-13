@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { firstSelectedCellIndex, isDarkMode, isHoverMode, moveFuture, moveHistory, table } from "../lib/stores";
-  import { getNewEmptyTable } from "../lib/tableSchema";
-  import { checkPair } from "../lib/checkPair";
+  import { firstSelectedCellIndex, isDarkMode, isHoverMode, moveFuture, moveHistory, table } from '$lib/stores'
+  import { getNewEmptyTable } from '$lib/tableSchema'
+  import { checkPair } from '$lib/checkPair'
 
   const saveToHistory = ()=> {
     moveHistory.update((old) => [...old, $table])
@@ -21,7 +21,7 @@
     })
   }
 
-  const select = (index) => {
+  const select = (index: number) => {
     if ($firstSelectedCellIndex === undefined) {
       firstSelectedCellIndex.set(index)
       return
@@ -73,8 +73,8 @@
     isHoverMode.update((old) => !old)
   }
 
-  let selectionTimeout = undefined
-  const startSelection = (index) => {
+  let selectionTimeout: ReturnType<typeof setTimeout>
+  const startSelection = (index: number) => {
     selectionTimeout = setTimeout(() => {
       select(index)
     }, 200)
@@ -83,6 +83,11 @@
   const endSelection = () => {
     clearTimeout(selectionTimeout)
   }
+
+  $: totalCells = $table.filter(Boolean).length
+  $: totalRows = Math.ceil($table.length / 9)
+  $: baseList = new Array(9).fill(1).map((_, i) => i + 1)
+  $: perVal = baseList.map((e) => [e, $table.filter((val) => val === e).length])
 </script>
 
 <template>
@@ -100,6 +105,14 @@
       Clear board by finding <a href="/guide" target="_blank">pairs</a>
     </p>
     <div class="main__table">
+      <div class="main__stats">
+        Stats:
+        <br />Cells: {totalCells}
+        <br />Rows: {totalRows}
+        <br />
+        {#each perVal as val (val)}<br />{val[0]}: {val[1]}{/each}
+      </div>
+
       {#each $table as cell, index}
         {#if cell}
           <button
