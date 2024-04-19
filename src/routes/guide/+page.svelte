@@ -114,7 +114,9 @@
     <button />
   </div>
 
-  <h5 id="expand">Out or pairs? "Expand" copies everything and you can find new combinations. Before:</h5>
+  <h5 id="expand">
+    Out or pairs? "Expand" copies everything and you can find new combinations. Before:
+  </h5>
   <div class="main__table">
     <button class="three">3</button>
     <button class="four">4</button>
