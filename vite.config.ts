@@ -1,9 +1,6 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
+import { sveltekit } from '@sveltejs/kit/vite'
 
-const config: UserConfig = {
-  base: "/numbrikas/",
-	plugins: [sveltekit()],
-};
-
-export default config;
+export default {
+  base: '/numbrikas/',
+  plugins: [sveltekit()],
+}

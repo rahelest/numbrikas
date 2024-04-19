@@ -1,9 +1,16 @@
 <script lang="ts">
-  import { firstSelectedCellIndex, isDarkMode, isHoverMode, moveFuture, moveHistory, table } from '$lib/stores'
+  import {
+    firstSelectedCellIndex,
+    isDarkMode,
+    isHoverMode,
+    moveFuture,
+    moveHistory,
+    table,
+  } from '$lib/stores'
   import { getNewEmptyTable } from '$lib/tableSchema'
   import { checkPair } from '$lib/checkPair'
 
-  const saveToHistory = ()=> {
+  const saveToHistory = () => {
     moveHistory.update((old) => [...old, $table])
     moveFuture.set([])
   }
@@ -49,17 +56,17 @@
       firstSelectedCellIndex.set(undefined)
       const lastState = $moveHistory[$moveHistory.length - 1]
       moveHistory.update((old) => old.slice(0, $moveHistory.length - 1))
-      moveFuture.update(old => [$table, ...old])
+      moveFuture.update((old) => [$table, ...old])
       table.set(lastState)
     }
   }
 
   const redo = () => {
-    if ($moveFuture.length >0) {
+    if ($moveFuture.length > 0) {
       firstSelectedCellIndex.set(undefined)
       const lastState = $moveFuture[0]
       moveFuture.update((old) => old.slice(1))
-      moveHistory.update(old => [...old, $table])
+      moveHistory.update((old) => [...old, $table])
       table.set(lastState)
     }
   }
@@ -90,7 +97,12 @@
   $: perVal = baseList.map((e) => [e, $table.filter((val) => val === e).length])
 </script>
 
-<template>
+<svelte:head>
+  <title>Numbrikas</title>
+  <meta name="description" content="A game of numbers" />
+</svelte:head>
+
+<div>
   <div class="main__menu">
     <button on:click={undo} disabled={!$moveHistory.length}>Undo</button>
     <button on:click={redo} disabled={!$moveFuture.length}>Redo</button>
@@ -135,7 +147,7 @@
       {/each}
     </div>
   </div>
-</template>
+</div>
 
 <style>
   .notEmpty {
